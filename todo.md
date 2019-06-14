@@ -52,3 +52,4 @@ resize chart on resize
 //download
 - enable different downloads according chart...
 - maps only image?
+- export deckgl using jsonconverter

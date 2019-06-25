@@ -5,6 +5,13 @@ change index:
 
 translate?
 
+////////////
+choose data
+
+- ine -> municpi i dimensió
+- ckan bcn -> llistat de datatables
+- gene od -> llistat de datatables
+
 /////////////
 pass csv trough url and avoid first step
 
@@ -37,8 +44,6 @@ choose a chart
 chart or maps? selector menu
 
 add tipical deck
-
-
 
 
 //confs

@@ -141,6 +141,7 @@ angular.module('raw.directives', [])
 			link: function postLink(scope, element, attrs) {
 
 				function update() {
+
 					$('*[data-toggle="tooltip"]').tooltip({
 						container: 'body'
 					});
@@ -148,6 +149,7 @@ angular.module('raw.directives', [])
 					d3.select(element[0]).select("*").remove();
 
 					if (!scope.chart || !scope.data.length) return;
+
 					if (!scope.model.isValid()) return;
 
 					d3.select(element[0])
@@ -176,7 +178,6 @@ angular.module('raw.directives', [])
 						.node().parentNode.innerHTML;
 
 					$rootScope.$broadcast("completeGraph");
-
 				}
 
 				scope.delayUpdate = dataService.debounce(update, 300, false);
@@ -592,15 +593,15 @@ angular.module('raw.directives', [])
 							return d.key == sortBy ? 1 : 0;
 						})
 
-					//data.filter(function(d){return d.category == category;})
 					var NR = 0;
 					var rows = table.append("tbody")
 						.selectAll("tr")
 						//.data(scope.data.sort(sort))
-						.data(scope.data.filter(function (d) {
-							NR += 1
-							return NR <= 1000;
-						}))
+						//						.data(scope.data.filter(function (d) {
+						//							NR += 1
+						//							return NR <= 1000;
+						//						}))
+						.data(scope.data.slice(0, 500))
 						.enter().append("tr");
 
 					var cells = rows.selectAll("td")

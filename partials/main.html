@@ -374,7 +374,16 @@
 							</p>
 
 							<div ng-switch="" on="option.type()">
+
 								<input type="number" min="0" class="form-control" ng-model="option.value" ng-switch-when="number"></input>
+
+								<!--range-->
+								<div ng-switch-when="range">
+									{{option.value}}
+									<input type="range" min="{{option.min}}" max="{{option.max}}" value="option.value" step="{{option.step}}" class="form-control" ng-model="option.value"></input>
+
+									<!--									<input type="range" min="0" max="100" step="1" value="100" class="form-control" ng-model="option.value"></input>-->
+								</div>
 
 								<div ng-switch-when="checkbox">
 									<label class="">

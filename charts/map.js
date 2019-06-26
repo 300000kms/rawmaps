@@ -1,7 +1,9 @@
 (function () {
+	//https://github.com/uber/deck.gl/blob/7.1-release/examples/website/map-tile/app.js
 
 	var points = raw.models.points();
 
+	//
 	var chart = raw.map()
 		.title('Map')
 		.description(
@@ -10,151 +12,105 @@
 		.category('Dispersion')
 		.model(points);
 
-	var width = chart.number()
-		.title("Width")
+	// aquí van las variables de configuración
+	var radius = chart.number()
+		.title("Radius")
 		.defaultValue(1000)
 		.fitToWidth(true);
 
-	var height = chart.number()
-		.title("Height")
-		.defaultValue(500);
+	var coverage = chart.range()
+		.title("Coverage")
+		.min(0)
+		.max(1)
+		.step(0.1)
+		.defaultValue(10)
+		.fitToWidth(true);
 
-	//left margin
-	var marginLeft = chart.number()
-		.title('Left Margin')
-		.defaultValue(40)
-
-	var maxRadius = chart.number()
-		.title("max radius")
-		.defaultValue(20);
-
-	var useZero = chart.checkbox()
-		.title("set origin at (0,0)")
-		.defaultValue(false);
+	var upperPercentile = chart.range()
+		.title("Upper percentile")
+		.min(0)
+		.max(100)
+		.step(1)
+		.defaultValue(100)
+		.fitToWidth(true);
 
 	var colors = chart.color()
 		.title("Color scale");
 
-	var showPoints = chart.checkbox()
-		.title("show points")
-		.defaultValue(true);
-
 	chart.draw((selection, data) => {
+		let da = [];
+		console.log(colors.value)
+		var counter = 0;
+		var xx = [];
+		var yy = [];
+		for (x in data) {
+			if (typeof (data[x].x) == 'number' && typeof (data[x].y) == 'number' && data[x].y < 90 && data[x].y > -90) {
+				counter += 1;
+				xx.push(data[x].x);
+				yy.push(data[x].y);
+				da.push([data[x].x, data[x].y]);
+			}
+		}
 
-		// Retrieving dimensions from model
-		var x = points.dimensions().get('x'),
-			y = points.dimensions().get('y');
+		xx = d3.median(xx);
+		yy = d3.median(yy);
 
-		//define margins
-		var margin = {
-			top: +maxRadius(),
-			right: +maxRadius(),
-			bottom: 20 + maxRadius(),
-			left: marginLeft()
-		};
+		ID = 'chart';
+		JID = '#' + ID
+		$(JID).html('');
+		$(JID).width('100%');
+		$(JID).height('calc(100vh - 100px)');
+		$(JID).after('<div id ="deck" ></div>')
 
-		var w = width() - margin.left - margin.right,
-			h = height() - margin.bottom - margin.top;
+		const {
+			DeckGL,
+			HexagonLayer
+		} = deck;
 
-		var g = selection
-			.attr("width", +width())
-			.attr("height", +height())
-			.append("g")
-			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-
-		var xExtent = !useZero() ? d3.extent(data, d => {
-				return d.x;
-			}) : [0, d3.max(data, d => {
-				return d.x;
-			})],
-			yExtent = !useZero() ? d3.extent(data, d => {
-				return d.y;
-			}) : [0, d3.max(data, d => {
-				return d.y;
-			})];
-
-		var xScale = x.type() == "Date" ?
-			d3.scaleTime().range([0, w]).domain(xExtent) :
-			d3.scaleLinear().range([0, w]).domain(xExtent),
-			yScale = y.type() == "Date" ?
-			d3.scaleTime().range([h, 0]).domain(yExtent) :
-			d3.scaleLinear().range([h, 0]).domain(yExtent),
-			sizeScale = d3.scaleSqrt().range([1, +maxRadius()])
-			.domain([0, d3.max(data, d => {
-				return d.size;
-			})]),
-			xAxis = d3.axisBottom(xScale).tickSize(-h) //.tickSubdivide(true),
-		yAxis = d3.axisLeft(yScale).ticks(10).tickSize(-w);
-
-		g.append("g")
-			.attr("class", "x axis")
-			.style("stroke-width", "1px")
-			.style("font-size", "10px")
-			.style("font-family", "Arial, Helvetica")
-			//.attr("transform", `translate(0, ${h - maxRadius()})`)
-			.attr('transform', 'translate(0,' + h + ')')
-			.call(xAxis);
-
-		g.append("g")
-			.attr("class", "y axis")
-			.style("stroke-width", "1px")
-			.style("font-size", "10px")
-			.style("font-family", "Arial, Helvetica")
-			//.attr("transform", `translate(${margin.left}, 0)`)
-			.call(yAxis);
-
-		d3.selectAll(".y.axis line, .x.axis line, .y.axis path, .x.axis path")
-			.style("shape-rendering", "crispEdges")
-			.style("fill", "none")
-			.style("stroke", "#ccc");
-
-		var circle = g.selectAll("g.circle")
-			.data(data)
-			.enter().append("g")
-			.attr("class", "circle");
-
-		var point = g.selectAll("g.point")
-			.data(data)
-			.enter().append("g")
-			.attr("class", "point")
-
-		colors.domain(data, d => {
-			return d.color;
+		const deckgl = new DeckGL({
+			container: document.getElementById(ID),
+			longitude: xx,
+			latitude: yy,
+			zoom: 6,
+			minZoom: 5,
+			maxZoom: 15,
+			pitch: 40.5
 		});
 
-		circle.append("circle")
-			.style("fill", d => {
-				return colors() ? colors()(d.color) : "#eeeeee";
-			})
-			.style("fill-opacity", .9)
-			.attr("transform", d => {
-				return `translate(${xScale(d.x)}, ${yScale(d.y)})`;
-			})
-			.attr("r", d => {
-				return sizeScale(d.size);
+		var data = null;
+
+		const OPTIONS = ['radius', 'coverage', 'upperPercentile'];
+
+		const COLOR_RANGE = [
+			[1, 152, 189],
+			[73, 227, 206],
+			[216, 254, 181],
+			[254, 237, 177],
+			[254, 173, 84],
+			[209, 55, 78]
+		];
+
+		function renderLayer() {
+			const hexagonLayer = new HexagonLayer({
+				id: 'deckMap',
+				colorRange: COLOR_RANGE,
+				data: da,
+				elevationRange: [0, 1000],
+				elevationScale: 250,
+				extruded: true,
+				getPosition: d => d,
+				opacity: 1,
+				radius: radius(),
+				coverage: coverage(),
+				upperPercentile: upperPercentile()
 			});
 
-		point.append("circle")
-			.filter(d => {
-				return showPoints();
-			})
-			.style("fill", "#000")
-			.attr("transform", d => {
-				return `translate(${xScale(d.x)}, ${yScale(d.y)})`;
-			})
-			.attr("r", 1);
-
-		circle.append("text")
-			.attr("transform", d => {
-				return `translate(${xScale(d.x)}, ${yScale(d.y)})`;
-			})
-			.attr("text-anchor", "middle")
-			.style("font-size", "10px")
-			.attr("dy", 15)
-			.style("font-family", "Arial, Helvetica")
-			.text(d => {
-				return d.label ? d.label.join(", ") : "";
+			deckgl.setProps({
+				layers: [hexagonLayer]
 			});
+		}
+
+		renderLayer();
 
 	})
 

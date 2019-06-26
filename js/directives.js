@@ -171,11 +171,15 @@ angular.module('raw.directives', [])
 								}
 							})
 						)
+					try {
+						scope.svgCode = d3.select(element[0])
+							.select('svg')
+							.attr("xmlns", "http://www.w3.org/2000/svg")
+							.node().parentNode.innerHTML;
+					} catch (error) {
+						scope.svgCode = '';
+					}
 
-					scope.svgCode = d3.select(element[0])
-						.select('svg')
-						.attr("xmlns", "http://www.w3.org/2000/svg")
-						.node().parentNode.innerHTML;
 
 					$rootScope.$broadcast("completeGraph");
 				}
@@ -183,14 +187,14 @@ angular.module('raw.directives', [])
 				scope.delayUpdate = dataService.debounce(update, 300, false);
 
 				scope.$watch('chart', function () {
-					console.log("> chart");
+					//console.log("> chart");
 					update();
 				});
 				scope.$on('update', function () {
-					console.log("> update");
+					//console.log("> update");
 					update();
 				});
-				//scope.$watch('data', update)
+				//scope.$watch('data', update) //streaming data?
 				scope.$watch(function () {
 					if (scope.model) return scope.model(scope.data);
 				}, update, true);
@@ -668,13 +672,17 @@ angular.module('raw.directives', [])
 			link: function postLink(scope, element, attrs) {
 
 				scope.$on('completeGraph', function () {
+					try {
+						var svgCode = d3.select('#chart > svg')
+							.attr("version", 1.1)
+							.attr("xmlns", "http://www.w3.org/2000/svg")
+							.node().parentNode.innerHTML;
 
-					var svgCode = d3.select('#chart > svg')
-						.attr("version", 1.1)
-						.attr("xmlns", "http://www.w3.org/2000/svg")
-						.node().parentNode.innerHTML;
+						element.find('textarea').val(svgCode)
+					} catch (error) {
+						scope.svgCode = '';
+					}
 
-					element.find('textarea').val(svgCode)
 				})
 
 				/*function asHTML(){

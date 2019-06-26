@@ -251,6 +251,11 @@ angular.module('raw.controllers', [])
 				title: 'Fotocasa2',
 				type: 'points (narrow)',
 				url: 'data/fotocasa2.csv'
+            },
+			{
+				title: 'heatmapData',
+				type: 'points (narrow)',
+				url: 'data/heatmap-data.csv'
             }
     ]
 

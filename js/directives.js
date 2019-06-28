@@ -632,13 +632,38 @@ angular.module('raw.directives', [])
 
 	//https://stackoverflow.com/questions/6132796/how-to-make-a-jsonp-request-from-javascript-without-jquery
 
-	.directive('odTable', function () {
+	.directive('odTable', ['$http', function ($http) {
 		return {
 			restrict: 'A',
 			link: function postLink(scope, element, attrs) {
 				var proxy = 'http://od.300000kms.net/get.cgi?url='
 				scope.$watch('parseodbcn', function () {
 					scope.loading = true;
+
+					function stoploading() {
+						scope.loading = false;
+					};
+
+
+					//					$http.jsonp(attrs.url, {
+					//						jsonpCallbackParam: 'ckanTable',
+					//						cache: true,
+					//						headers: {
+					//							'Access-Control-Allow-Headers': 'Content-Type',
+					//							//'Access-Control-Allow-Methods': ' GET, POST, OPTIONS',
+					//							'Access-Control-Allow-Origin': '*'
+					//						},
+					//						params: {
+					//							'rows': 5
+					//						},
+					//					}).then(function successCallback(response) {
+					//						console.log(response);
+					//						scope.loading = false;
+					//
+					//					}, function errorCallback(response) {
+					//						console.log(response);
+					//					});
+
 					if (scope.parseodbcn == true) {
 
 						$.ajax({
@@ -648,7 +673,7 @@ angular.module('raw.directives', [])
 							jsonpCallback: "ckanTable",
 							dataType: "jsonp",
 							data: {
-								'rows': 5000
+								'rows': 5
 							},
 							xhr: function () {
 								var xhr = $.ajaxSettings.xhr();
@@ -660,7 +685,6 @@ angular.module('raw.directives', [])
 								return xhr;
 							},
 							success: function (res) {
-								scope.loading = false;
 								var res = res.result.results;
 								var res2 = []
 								for (var r in res) {
@@ -674,7 +698,9 @@ angular.module('raw.directives', [])
 												//'year2': res[r].resources[rr].url.split('/').slice(-1)[0].split('_')[0],
 												//'year': res[r].resources[rr].url.split('/').slice(-1)[0].match(/\d{4}/),
 												'year': res[r].resources[rr].name.match(/\d{4}/),
-												'file': res[r].resources[rr].name
+												'file': res[r].resources[rr].name,
+												'actions': '<a class="zoom" title="Zoom" style="margin-right: 10px;"><i class="fas fa-arrow-circle-down"></i></a>',
+												'view': '<a class="zoom" title="Zoom" style="margin-right: 10px;"><i class="fas fa-chart-bar"></i></a>'
 											})
 										}
 									}
@@ -700,6 +726,20 @@ angular.module('raw.directives', [])
 									groupByField: 'name',
 									groupBy: true,
 									columns: [
+										{
+											"field": "view",
+											"visible": true,
+											"sortable": false,
+											"title": "",
+											"align": "nom"
+												},
+										{
+											"field": "actions",
+											"visible": true,
+											"sortable": true,
+											"title": "",
+											"align": "center"
+				    							},
 										{
 											"field": "name",
 											"visible": false,
@@ -738,6 +778,7 @@ angular.module('raw.directives', [])
 											"title": "downloads"
 				    							},
 
+
 											],
 									onClickRow: function (row) {
 
@@ -750,22 +791,20 @@ angular.module('raw.directives', [])
 											type: 'GET',
 											url: 'test/download.csv', //row.url,
 											cache: true,
-											//											jsonpCallback: "ckanTable",
-											//												dataType: "jsonp",
+											//jsonpCallback: "ckanTable",
+											//dataType: "jsonp",
 											success: function (res) {
-												console.log(scope);
-												//												scope.text = res;
-												//												scope.loading = false;
-												//												scope.json = true;
-												//												scope.parsed = true;
-
+												//scope.text = res;
+												//scope.loading = false;
+												//scope.json = true;
+												//scope.parsed = true;
+												scope.fileName = row.file;
 												scope.json = null;
 												scope.text = res;
 												scope.parse(res);
+
 											},
 										})
-
-
 									},
 									//							rowStyle: function (row, index) {
 									//								//return rowStyle(row, index)
@@ -778,6 +817,9 @@ angular.module('raw.directives', [])
 
 							}
 
+						}).done(function () {
+							//console.log('dsdsdfsafasf')
+							//scope.loading = false;
 						});
 					}
 
@@ -789,7 +831,7 @@ angular.module('raw.directives', [])
 
 			}
 		};
-	})
+	}])
 
 
 	.directive('copyButton', function () {
@@ -918,46 +960,63 @@ angular.module('raw.directives', [])
 
 				}
 
+				function download() {
+					//https://github.com/keplergl/kepler.gl/blob/abe8e9b8e20d4f3b430c2c3c7d7350c838d49907/src/utils/dom-to-image.js
+
+					var link = document.createElement('a');
+					link.download = scope.filename;
+					link.href = document.getElementById('deckgl-overlay').toDataURL('image/png');
+					link.click();
+				}
+
 				function downloadPng() {
+					try {
 
-					var content = d3.select("body").append("canvas")
-						.attr("id", "canvas")
-						.style("display", "none")
 
-					var html = d3.select(source)
-						.node().parentNode.innerHTML;
+						var content = d3.select("body").append("canvas")
+							.attr("id", "canvas")
+							.style("display", "none")
 
-					var image = new Image;
-					image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(html)));
+						var html = d3.select(source)
+							.node().parentNode.innerHTML;
 
-					var canvas = document.getElementById("canvas");
+						var image = new Image;
+						image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(html)));
 
-					var context = canvas.getContext("2d");
+						var canvas = document.getElementById("canvas");
 
-					image.onload = function () {
+						var context = canvas.getContext("2d");
 
-						canvas.width = image.width;
-						canvas.height = image.height;
-						context.drawImage(image, 0, 0);
+						image.onload = function () {
 
-						var isSafari = (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1);
+							canvas.width = image.width;
+							canvas.height = image.height;
+							context.drawImage(image, 0, 0);
 
-						if (isSafari) {
-							var img = canvas.toDataURL("image/png;base64");
-							var newWindow = window.open(img, 'download');
-							window.location = img;
-						} else {
-							var a = document.createElement("a");
-							a.download = (scope.filename || element.find('input').attr("placeholder")) + ".png";
-							a.href = canvas.toDataURL("image/png;base64");
-							var event = document.createEvent("MouseEvents");
-							event.initMouseEvent(
-								"click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null
-							);
-							a.dispatchEvent(event);
-						}
-					};
-					d3.select("#canvas").remove();
+							var isSafari = (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1);
+
+							if (isSafari) {
+								var img = canvas.toDataURL("image/png;base64");
+								var newWindow = window.open(img, 'download');
+								window.location = img;
+							} else {
+								var a = document.createElement("a");
+								a.download = (scope.filename || element.find('input').attr("placeholder")) + ".png";
+								a.href = canvas.toDataURL("image/png;base64");
+								var event = document.createEvent("MouseEvents");
+								event.initMouseEvent(
+									"click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null
+								);
+								a.dispatchEvent(event);
+							}
+						};
+						d3.select("#canvas").remove();
+					} catch (error) {
+						download()
+					}
+
+
+
 
 				}
 

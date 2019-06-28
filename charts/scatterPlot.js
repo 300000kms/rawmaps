@@ -126,6 +126,8 @@
 
 		circle.append("circle")
 			.style("fill", d => {
+				console.log(d.color);
+				console.log(colors()(d.color));
 				return colors() ? colors()(d.color) : "#eeeeee";
 			})
 			.style("fill-opacity", .9)

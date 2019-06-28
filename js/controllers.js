@@ -432,7 +432,7 @@ angular.module('raw.controllers', [])
 		$scope.parse = text => {
 
 			if ($scope.model) $scope.model.clear();
-
+			$scope.loading = false;
 			$scope.text = text;
 			$scope.data = [];
 			$scope.metadata = [];

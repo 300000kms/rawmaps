@@ -44,8 +44,8 @@
 		.defaultValue(100)
 		.fitToWidth(true);
 
-//	var colors = chart.color()
-//		.title("Color scale");
+	var colors = chart.color()
+		.title("Color scale");
 
 	function agg(points) {
 		r = 0;
@@ -71,13 +71,17 @@
 		}
 
 		colors.domain(da, d => {
-			return d[2];
+			return d[0];
 		});
 
-		console.log(colors())
-		console.log(colors().domain)
+		console.log(colors)
+		console.log(colors().domain())
 		console.log(colors().listColors)
 		console.log(colors().colorScale)
+//		for (c in colors) {
+//			console.log(c, colors[c])
+//		}
+
 
 		xx = d3.median(xx);
 		yy = d3.median(yy);

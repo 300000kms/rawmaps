@@ -51,7 +51,9 @@
 					<!--paste-->
 					<!-- odbcn -->
 					<div ng-show="importMode=='openDataBcn' && !json && !parsed">
+
 						<div od-table class="data-table" url="https://opendata-ajuntament.barcelona.cat/data/api/3/action/package_search?"></div>
+						<div data-ng-show="loading==true" data-ng-hide="loading==false" class="alert alert-loading"><i class="fa breath-right fa-refresh fa-spin"></i>Loading your data. Please wait.</div>
 					</div>
 
 					<!--paste-->
@@ -142,6 +144,7 @@
 						</div>
 					</div>
 
+					<!--success?-->
 					<div>
 						<!--<div data-ng-show="!loading && !data.length && !error" class="alert"><i class="fa fa-hand-o-right breath-right"></i> Not sure how this works? <a href="http://raw.densitydesign.org/how-it-works/">Take a look at this video</a> or <a href="https://github.com/densitydesign/raw/wiki/FAQs">visit our FAQs</a></div>-->
 						<div data-ng-show="!loading && !error && data.length && parsed" class="alert alert-success"><i class="fa fa-thumbs-up breath-right"></i><strong>{{data.length}}</strong> records in your data have been successfully parsed! (here we only show up to 500 records)</div>

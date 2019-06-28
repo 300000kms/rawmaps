@@ -636,31 +636,14 @@ angular.module('raw.directives', [])
 		return {
 			restrict: 'A',
 			link: function postLink(scope, element, attrs) {
-				//				let header = new Headers({
-				//					'Access-Control-Allow-Origin': '*',
-				//					'Content-Type': 'multipart/form-data'
-				//				});
-				//
-				//				let sentData = {
-				//					method: 'GET',
-				//					mode: 'no-cors',
-				//					header: header,
-				//				};
-
-				//let proxy = 'http://od.300000kms.net/get.cgi?url=';
-				//scope.parseodbcn = false;
+				var proxy = 'http://od.300000kms.net/get.cgi?url='
 				scope.$watch('parseodbcn', function () {
-
+					scope.loading = true;
 					if (scope.parseodbcn == true) {
-						//remove timestamp on request
-						//						$.ajaxSetup({
-						//							'cache': true
-						//						});
 
-						//request ckan
 						$.ajax({
+							type: 'GET',
 							url: attrs.url, // + '&callback=ckanTable',
-
 							cache: true,
 							jsonpCallback: "ckanTable",
 							dataType: "jsonp",
@@ -677,6 +660,7 @@ angular.module('raw.directives', [])
 								return xhr;
 							},
 							success: function (res) {
+								scope.loading = false;
 								var res = res.result.results;
 								var res2 = []
 								for (var r in res) {
@@ -760,23 +744,27 @@ angular.module('raw.directives', [])
 									},
 									onDblClickRow: function (row) {
 										console.log(row.url);
-										//								scope.url = row.url;
-										//								scope.fileName = row.url;
-										scope.selectSample(row.url);
 
-										//								if (!sample) return;
-										//								$scope.text = "";
-										//								$scope.loading = true;
-										//								dataService.loadSample(sample.url).then(
-										//									data => {
-										//										$scope.text = data.replace(/\r/g, '');
-										//										$scope.loading = false;
-										//									},
-										//									error => {
-										//										$scope.error = error;
-										//										$scope.loading = false;
-										//									}
-										//								);
+										$.ajax({
+											crossDomain: true,
+											type: 'GET',
+											url: 'test/download.csv', //row.url,
+											cache: true,
+											//											jsonpCallback: "ckanTable",
+											//												dataType: "jsonp",
+											success: function (res) {
+												console.log(scope);
+												//												scope.text = res;
+												//												scope.loading = false;
+												//												scope.json = true;
+												//												scope.parsed = true;
+
+												scope.json = null;
+												scope.text = res;
+												scope.parse(res);
+											},
+										})
+
 
 									},
 									//							rowStyle: function (row, index) {
@@ -786,7 +774,7 @@ angular.module('raw.directives', [])
 
 
 								$(element[0]).bootstrapTable("load", JSON.parse(JSON.stringify(res2)));
-								$('.info.groupBy.expanded').trigger('click')
+								$('.info.groupBy.expanded').trigger('click');
 
 							}
 

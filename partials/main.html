@@ -38,7 +38,7 @@
 				<div class="col-lg-2">
 
 					<ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
-						<li role="presentation" ng-class="{active:!parsed && importMode=='openDataBcn'}"><a href="#" ng-click="parsed=false;importMode='openDataBcn'"><i class="fa fa-clipboard breath-right"></i>openDataBcn</a></li>
+						<li role="presentation" ng-class="{active:!parsed && importMode=='openDataBcn'}"><a href="#" ng-click="parsed=false;importMode='openDataBcn';parseodbcn=true"><i class="fa fa-clipboard breath-right"></i>openDataBcn</a></li>
 						<li role="presentation" ng-class="{active:!parsed && importMode=='clipboard'}"><a href="#" ng-click="parsed=false;importMode='clipboard'"><i class="fa fa-clipboard breath-right"></i>Paste</a></li>
 						<li role="presentation" ng-class="{active:!parsed && importMode=='file'}"><a href="#" ng-click="parsed=false;importMode='file'"><i class="fa fa-file-text breath-right"></i>Upload a file</a></li>
 						<li role="presentation" ng-class="{active:!parsed && importMode=='url'}"><a href="#" ng-click="parsed=false;importMode='url'"><i class="fa fa-cloud breath-right"></i>From URL</a></li>
@@ -49,13 +49,13 @@
 
 				<div class="col-lg-10">
 					<!--paste-->
-					<!-- Clipboard -->
+					<!-- odbcn -->
 					<div ng-show="importMode=='openDataBcn' && !json && !parsed">
-						<textarea ui-codemirror="{lineWrapping : true,   dragDrop : false}" class="text-clipboard margin-bottom" ng-model="clipboardText" placeholder="Paste your data here from other applications"></textarea>
-						<p class="help-block">Copy and paste your data from other applications or websites. You can use tabular (TSV, CSV, DSV) or JSON data
-							<p>
-
+						<div od-table class="data-table" url="https://opendata-ajuntament.barcelona.cat/data/api/3/action/package_search?"></div>
 					</div>
+
+					<!--paste-->
+					<!-- Clipboard -->
 					<div ng-show="importMode=='clipboard' && !json && !parsed">
 						<textarea ui-codemirror="{lineWrapping : true,   dragDrop : false}" class="text-clipboard margin-bottom" ng-model="clipboardText" placeholder="Paste your data here from other applications"></textarea>
 						<p class="help-block">Copy and paste your data from other applications or websites. You can use tabular (TSV, CSV, DSV) or JSON data
@@ -89,7 +89,9 @@
 
 					<!-- URl -->
 					<div ng-show="importMode=='url' && !json && !parsed">
-						<input type="text" class="form-control margin-bottom" ng-model="url" placeholder="http://" ng-show="!worksheets.length"></input>
+						<input type="text" class="form-control margin-bottom" ng-model="url" placeholder="http://" ng-show="!worksheets.length">
+						</input>
+
 						<p class="help-block">Enter a web address (URL) pointing to the data (e.g. a public Dropbox file, a public API, ...). Please, be sure the server is CORS-enabled.
 							<p>
 
@@ -110,7 +112,7 @@
 
 					</div>
 
-					<!-- Default -->
+					<!-- Default: mostrar el dato parseado-->
 					<div ng-show="parsed">
 
 						<div data-ng-show="dataView != 'table'">
@@ -120,8 +122,6 @@
 						</div>
 
 						<div raw-table class="data-table" data-ng-show="dataView == 'table'"></div>
-
-
 					</div>
 
 					<div class="json-viewer margin-bottom" json-viewer json="json" ng-show="json" on-select="antani"></div>

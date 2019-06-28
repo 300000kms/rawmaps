@@ -5,136 +5,137 @@
 angular.module('raw.directives', [])
 	//no trabaja
 
-	/*
-	    .directive('jsonViewer', dataService => {
-	        return {
-	            scope: {
-	                json: "=",
-	                onSelect: "="
-	            },
 
-	            link: function postLink(scope, element, attrs) {
+	.directive('jsonViewer', dataService => {
+		return {
+			scope: {
+				json: "=",
+				onSelect: "="
+			},
 
-	                scope.$watch('json', json => {
-	                    update();
-	                })
+			link: function postLink(scope, element, attrs) {
 
-	                function update() {
+				scope.$watch('json', json => {
+					update();
+				})
 
-	                    d3.select(element[0]).selectAll("*").remove();
+				function update() {
 
-	                    var tree = d3.select(element[0])
-	                        .append("div")
-	                        .classed("json-node", "true")
+					d3.select(element[0]).selectAll("*").remove();
 
-	                    var j = scope.json;
+					var tree = d3.select(element[0])
+						.append("div")
+						.classed("json-node", "true")
 
-	                    explore(j, tree);
+					var j = scope.json;
 
-	                    function explore(m, el) {
+					explore(j, tree);
 
-
-	                        if (el === tree && is.object(m) && is.not.array(m) && is.not.empty(m)) {
-
-	                            el.append("div")
-	                                //	.classed("json-node","true")
-	                                .text(d => {
-	                                    return "{";
-	                                })
-	                        }
+					function explore(m, el) {
 
 
-	                        var n = el === tree && is.array(m) && is.not.empty(m) ? [m] : m;
+						if (el === tree && is.object(m) && is.not.array(m) && is.not.empty(m)) {
 
-	                        for (var c in n) {
-
-	                            var cel = el.append("div")
-	                                .datum(n[c]) //d => {console.log(el === tree, n); return el === tree ? {tree:n} : n[c]})
-	                                .classed("json-node", "true")
-
-	                            if (is.array(n[c]) && is.not.empty(n[c])) {
-
-	                                cel.classed("json-closed", d => {
-	                                    return el === tree ? "false" : "true"
-	                                })
-
-	                                cel.classed("json-array", d => {
-	                                    return el === tree ? "false" : "true"
-	                                })
-
-	                                //data-toggle="tooltip"
-	                                //data-title="Clear all"
-
-	                                cel.append("i")
-	                                    .classed("json-icon fa fa-plus-square-o pull-left", "true")
-	                                    .on("click", d => {
-	                                        d3.event.stopPropagation();
-	                                        d3.select(this.parentNode).classed("json-closed", function () {
-	                                            return !d3.select(this).classed("json-closed");
-	                                        })
-	                                        d3.select(this).classed("fa-plus-square-o", d3.select(this.parentNode).classed("json-closed"))
-	                                        d3.select(this).classed("fa-minus-square-o", !d3.select(this.parentNode).classed("json-closed"))
-	                                    })
-	                            }
-
-	                            cel.append("div")
-	                                .html(d => {
-	                                    var pre = is.array(n) ? "" : "<b>" + c + "</b> : ";
-	                                    var text = is.array(n[c]) ? "[" : is.object(n[c]) ? "{" : n[c];
-	                                    text += is.array(n[c]) && !n[c].length ? "]" : is.object(n[c]) && is.empty(n[c]) ? "}" : "";
-	                                    return pre + text;
-	                                })
-
-	                            if (is.object(n[c])) explore(n[c], cel);
-	                        }
-
-	                        if (is.array(n) && el !== tree) {
-
-	                            el.select('div')
-	                                .attr("data-toggle", "tooltip")
-	                                .attr("data-title", d => {
-	                                    return "Load " + d.length + " records";
-	                                })
-	                                .on("mouseover", d => {
-	                                    d3.event.stopPropagation();
-	                                    d3.select(this.parentNode).classed("json-hover", true)
-	                                })
-	                                .on("mouseout", d => {
-	                                    d3.event.stopPropagation();
-	                                    d3.select(this.parentNode).classed("json-hover", false)
-	                                })
-	                                .on("click", d => {
-	                                    d3.event.stopPropagation();
-	                                    scope.onSelect(d);
-	                                })
-	                        }
-
-	                        if (is.object(n) && is.not.empty(n)) {
-
-	                            if (is.array(n) && el === tree) return;
-
-	                            el.append("div")
-	                                //	.classed("json-node","true")
-	                                .text(d => {
-	                                    var text = is.array(n) ? "]" : "}";
-	                                    return text;
-	                                })
-	                        }
-
-	                        $('[data-toggle="tooltip"]').tooltip({
-	                            animation: false
-	                        });
-
-	                    }
+							el.append("div")
+								//	.classed("json-node","true")
+								.text(d => {
+									return "{";
+								})
+						}
 
 
-	                }
+						var n = el === tree && is.array(m) && is.not.empty(m) ? [m] : m;
+
+						for (var c in n) {
+
+							var cel = el.append("div")
+								.datum(n[c]) //d => {console.log(el === tree, n); return el === tree ? {tree:n} : n[c]})
+								.classed("json-node", "true")
+
+							if (is.array(n[c]) && is.not.empty(n[c])) {
+
+								cel.classed("json-closed", d => {
+									return el === tree ? "false" : "true"
+								})
+
+								cel.classed("json-array", d => {
+									return el === tree ? "false" : "true"
+								})
+
+								//data-toggle="tooltip"
+								//data-title="Clear all"
+
+								cel.append("i")
+									.classed("json-icon fa fa-plus-square-o pull-left", "true")
+									.on("click", d => {
+										d3.event.stopPropagation();
+										d3.select(this.parentNode).classed("json-closed", function () {
+											return !d3.select(this).classed("json-closed");
+										})
+										d3.select(this).classed("fa-plus-square-o", d3.select(this.parentNode).classed("json-closed"))
+										d3.select(this).classed("fa-minus-square-o", !d3.select(this.parentNode).classed("json-closed"))
+									})
+							}
+
+							cel.append("div")
+								.html(d => {
+									var pre = is.array(n) ? "" : "<b>" + c + "</b> : ";
+									var text = is.array(n[c]) ? "[" : is.object(n[c]) ? "{" : n[c];
+									text += is.array(n[c]) && !n[c].length ? "]" : is.object(n[c]) && is.empty(n[c]) ? "}" : "";
+									return pre + text;
+								})
+
+							if (is.object(n[c])) explore(n[c], cel);
+						}
+
+						if (is.array(n) && el !== tree) {
+
+							el.select('div')
+								.attr("data-toggle", "tooltip")
+								.attr("data-title", d => {
+									return "Load " + d.length + " records";
+								})
+								.on("mouseover", d => {
+									d3.event.stopPropagation();
+									d3.select(this.parentNode).classed("json-hover", true)
+								})
+								.on("mouseout", d => {
+									d3.event.stopPropagation();
+									d3.select(this.parentNode).classed("json-hover", false)
+								})
+								.on("click", d => {
+									d3.event.stopPropagation();
+									scope.onSelect(d);
+								})
+						}
+
+						if (is.object(n) && is.not.empty(n)) {
+
+							if (is.array(n) && el === tree) return;
+
+							el.append("div")
+								//	.classed("json-node","true")
+								.text(d => {
+									var text = is.array(n) ? "]" : "}";
+									return text;
+								})
+						}
+
+						$('[data-toggle="tooltip"]').tooltip({
+							animation: false
+						});
+
+					}
 
 
-	            }
-	        };
-	    })
-	*/
+				}
+
+
+			}
+		};
+	})
+
+
 	.directive('chart', function ($rootScope, dataService) {
 		return {
 			restrict: 'A',
@@ -239,9 +240,7 @@ angular.module('raw.directives', [])
 			restrict: 'A',
 			templateUrl: 'templates/colors.html',
 			link: function postLink(scope, element, attrs) {
-
 				scope.scales = [
-
 					{
 						type: 'Ordinal (categories)',
 						value: d3.scaleOrdinal().range(raw.divergingRange(1)),
@@ -630,6 +629,180 @@ angular.module('raw.directives', [])
 			}
 		};
 	})
+
+	//https://stackoverflow.com/questions/6132796/how-to-make-a-jsonp-request-from-javascript-without-jquery
+
+	.directive('odTable', function () {
+		return {
+			restrict: 'A',
+			link: function postLink(scope, element, attrs) {
+				//				let header = new Headers({
+				//					'Access-Control-Allow-Origin': '*',
+				//					'Content-Type': 'multipart/form-data'
+				//				});
+				//
+				//				let sentData = {
+				//					method: 'GET',
+				//					mode: 'no-cors',
+				//					header: header,
+				//				};
+
+				//let proxy = 'http://od.300000kms.net/get.cgi?url=';
+				//scope.parseodbcn = false;
+				scope.$watch('parseodbcn', function () {
+
+					if (scope.parseodbcn == true) {
+						//remove timestamp on request
+						//						$.ajaxSetup({
+						//							'cache': true
+						//						});
+
+						//request ckan
+						$.ajax({
+							url: attrs.url, // + '&callback=ckanTable',
+
+							cache: true,
+							jsonpCallback: "ckanTable",
+							dataType: "jsonp",
+							data: {
+								'rows': 5000
+							},
+							xhr: function () {
+								var xhr = $.ajaxSettings.xhr();
+								console.log('uuu', xhr);
+								xhr.onprogress = function (e) {
+									$(element[0]).html(parseInt(e.loaded / 1000) + ' bytes');
+									console.log(parseInt(e.loaded / 1000) + ' bytes')
+								};
+								return xhr;
+							},
+							success: function (res) {
+								var res = res.result.results;
+								var res2 = []
+								for (var r in res) {
+									for (var rr in res[r].resources) {
+										if (['CSV', 'TSV', 'DSV', 'JSON', 'XLS', 'XLSX'].indexOf(res[r].resources[rr].format.toUpperCase()) != -1) {
+											res2.push({
+												'name': res[r].title + ' / ' + res[r].department,
+												'format': res[r].resources[rr].format,
+												'url': res[r].resources[rr].url,
+												'downloads': res[r].resources[rr].downloads_absolute,
+												//'year2': res[r].resources[rr].url.split('/').slice(-1)[0].split('_')[0],
+												//'year': res[r].resources[rr].url.split('/').slice(-1)[0].match(/\d{4}/),
+												'year': res[r].resources[rr].name.match(/\d{4}/),
+												'file': res[r].resources[rr].name
+											})
+										}
+									}
+								}
+
+								$(element[0]).bootstrapTable({
+									stickyHeader: true,
+									cache: false,
+									height: $("#table-s").height(),
+									width: '100 %',
+									undefinedText: "",
+									striped: false,
+									pagination: false,
+									minimumCountColumns: 1,
+									//sortName: config.sortProperty,
+									//sortOrder: config.sortOrder,
+									//toolbar: "#syncselect",
+									search: true,
+									showHeader: false,
+									trimOnSearch: false,
+									showColumns: true,
+									showToggle: true,
+									groupByField: 'name',
+									groupBy: true,
+									columns: [
+										{
+											"field": "name",
+											"visible": false,
+											"sortable": true,
+											"title": "name",
+											"align": "nom"
+												},
+										{
+											"field": "file",
+											"visible": true,
+											"sortable": true,
+											"title": "file"
+				    							},
+										{
+											"field": "year",
+											"visible": true,
+											"sortable": true,
+											"title": "year"
+				    							},
+										{
+											"field": "format",
+											"visible": true,
+											"sortable": true,
+											"title": "format"
+				    							},
+										{
+											"field": "url",
+											"visible": false,
+											"sortable": true,
+											"title": "nom"
+				    							},
+										{
+											"field": "downloads",
+											"visible": true,
+											"sortable": true,
+											"title": "downloads"
+				    							},
+
+											],
+									onClickRow: function (row) {
+
+									},
+									onDblClickRow: function (row) {
+										console.log(row.url);
+										//								scope.url = row.url;
+										//								scope.fileName = row.url;
+										scope.selectSample(row.url);
+
+										//								if (!sample) return;
+										//								$scope.text = "";
+										//								$scope.loading = true;
+										//								dataService.loadSample(sample.url).then(
+										//									data => {
+										//										$scope.text = data.replace(/\r/g, '');
+										//										$scope.loading = false;
+										//									},
+										//									error => {
+										//										$scope.error = error;
+										//										$scope.loading = false;
+										//									}
+										//								);
+
+									},
+									//							rowStyle: function (row, index) {
+									//								//return rowStyle(row, index)
+									//							},
+								});
+
+
+								$(element[0]).bootstrapTable("load", JSON.parse(JSON.stringify(res2)));
+								$('.info.groupBy.expanded').trigger('click')
+
+							}
+
+						});
+					}
+
+
+
+				})
+
+
+
+			}
+		};
+	})
+
 
 	.directive('copyButton', function () {
 		return {

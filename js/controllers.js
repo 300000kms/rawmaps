@@ -296,6 +296,7 @@ angular.module('raw.controllers', [])
 		$scope.data = [];
 		$scope.metadata = [];
 		$scope.error = false;
+		$scope.defaultChart = 'Hex map';
 		//  $scope.loading = true;
 
 		$scope.importMode = 'clipboard';
@@ -454,7 +455,8 @@ angular.module('raw.controllers', [])
 						return d3.ascending(a.category(), b.category()) || d3.ascending(a.title(), b.title())
 					})
 					$scope.chart = $scope.charts.filter(d => {
-						return d.title() == 'Scatter Plot'
+						//return d.title() == 'Scatter Plot'
+						return d.title() == $scope.defaultChart
 					})[0];
 					$scope.model = $scope.chart ? $scope.chart.model() : null;
 				});

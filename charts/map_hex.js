@@ -1,7 +1,8 @@
 (function () {
     //https://github.com/uber/deck.gl/blob/7.1-release/examples/website/map-tile/app.js
 
-    var points = raw.models.points();
+    var points = raw.models.pointslite();
+    console.log(raw.model());
 
     //
     var chart = raw.map()

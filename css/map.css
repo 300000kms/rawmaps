@@ -1,38 +1,37 @@
 .btn.active,
 .btn:active {
-    background-image: none;
-    outline: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    background: #47d8b1;
-
-    color: white;
+	background-image: none;
+	outline: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	background: #47d8b1;
+	color: white;
 }
 
 .btn-xs {
-    margin: 2px;
+	margin: 2px;
 }
 
 button.btn-xs.active:after {
-    content: 'X';
-    font-size: 0.56em;
-    padding: 5px;
-    /* margin-bottom: 5px; */
-    /* padding-bottom: 10px; */
-    color: white;
-    font-weight: 900;
-    display: block;
-    float: right;
+	content: 'X';
+	font-size: 0.56em;
+	padding: 6px;
+	/* margin-bottom: 5px; */
+	/* padding-bottom: 10px; */
+	color: white;
+	font-weight: 900;
+	display: block;
+	float: right;
 }
 
 button.btn-xs:after {
-    content: 'X';
-    font-size: 0.56em;
-    padding: 5px;
-    /* margin-bottom: 5px; */
-    /* padding-bottom: 10px; */
-    color: transparent;
-    font-weight: 900;
-    display: block;
-    float: right;
+	content: 'O';
+	font-size: 0.56em;
+	padding: 6px;
+	/* margin-bottom: 5px; */
+	/* padding-bottom: 10px; */
+	color: gray;
+	font-weight: 900;
+	display: block;
+	float: right;
 }

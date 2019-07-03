@@ -3,9 +3,6 @@
 /* Directives */
 
 angular.module('raw.directives', [])
-	//no trabaja
-
-
 	.directive('jsonViewer', dataService => {
 		return {
 			scope: {
@@ -632,195 +629,172 @@ angular.module('raw.directives', [])
 
 	//https://stackoverflow.com/questions/6132796/how-to-make-a-jsonp-request-from-javascript-without-jquery
 
-	.directive('odTable', ['$http', function ($http) {
+	.directive('odTable', ['$http', '$sce', function ($http, $sce) {
 		return {
 			restrict: 'A',
 			link: function postLink(scope, element, attrs) {
 				var proxy = 'http://od.300000kms.net/get.cgi?url='
 				scope.$watch('parseodbcn', function () {
 					scope.loading = true;
-
-					function stoploading() {
-						scope.loading = false;
-					};
-
-
-					//					$http.jsonp(attrs.url, {
-					//						jsonpCallbackParam: 'ckanTable',
-					//						cache: true,
-					//						headers: {
-					//							'Access-Control-Allow-Headers': 'Content-Type',
-					//							//'Access-Control-Allow-Methods': ' GET, POST, OPTIONS',
-					//							'Access-Control-Allow-Origin': '*'
-					//						},
-					//						params: {
-					//							'rows': 5
-					//						},
-					//					}).then(function successCallback(response) {
-					//						console.log(response);
-					//						scope.loading = false;
-					//
-					//					}, function errorCallback(response) {
-					//						console.log(response);
-					//					});
-
 					if (scope.parseodbcn == true) {
-
-						$.ajax({
-							type: 'GET',
-							url: attrs.url, // + '&callback=ckanTable',
+						$http.jsonp($sce.trustAsResourceUrl(attrs.url), {
+							jsonpCallbackParam: 'callback',
 							cache: true,
-							jsonpCallback: "ckanTable",
-							dataType: "jsonp",
-							data: {
-								'rows': 5
+							headers: {
+								'Access-Control-Allow-Headers': 'Content-Type',
+								'Access-Control-Allow-Origin': '*'
 							},
-							xhr: function () {
-								var xhr = $.ajaxSettings.xhr();
-								console.log('uuu', xhr);
-								xhr.onprogress = function (e) {
-									$(element[0]).html(parseInt(e.loaded / 1000) + ' bytes');
-									console.log(parseInt(e.loaded / 1000) + ' bytes')
-								};
-								return xhr;
+							params: {
+								'rows': 50
 							},
-							success: function (res) {
-								var res = res.result.results;
-								var res2 = []
-								for (var r in res) {
-									for (var rr in res[r].resources) {
-										if (['CSV', 'TSV', 'DSV', 'JSON', 'XLS', 'XLSX'].indexOf(res[r].resources[rr].format.toUpperCase()) != -1) {
-											res2.push({
-												'name': res[r].title + ' / ' + res[r].department,
-												'format': res[r].resources[rr].format,
-												'url': res[r].resources[rr].url,
-												'downloads': res[r].resources[rr].downloads_absolute,
-												//'year2': res[r].resources[rr].url.split('/').slice(-1)[0].split('_')[0],
-												//'year': res[r].resources[rr].url.split('/').slice(-1)[0].match(/\d{4}/),
-												'year': res[r].resources[rr].name.match(/\d{4}/),
-												'file': res[r].resources[rr].name,
-												'actions': '<a class="zoom" title="Zoom" style="margin-right: 10px;"><i class="fas fa-arrow-circle-down"></i></a>',
-												'view': '<a class="zoom" title="Zoom" style="margin-right: 10px;"><i class="fas fa-chart-bar"></i></a>'
-											})
-										}
+						}).then(function successCallback(res) {
+							scope.loading = false;
+							var res = res.data.result.results;
+							var res2 = []
+							for (var r in res) {
+								for (var rr in res[r].resources) {
+									if (['CSV', 'TSV', 'DSV', 'JSON', 'XLS', 'XLSX'].indexOf(res[r].resources[rr].format.toUpperCase()) != -1) {
+										res2.push({
+											'name': res[r].title + ' / ' + res[r].department,
+											'format': res[r].resources[rr].format,
+											'url': res[r].resources[rr].url,
+											'downloads': res[r].resources[rr].downloads_absolute,
+											'year': res[r].resources[rr].name.match(/\d{4}/),
+											'file': res[r].resources[rr].name,
+											'actions': '<a class="zoom" title="Zoom" style="margin-right: 10px;" onclick="downloadOdbcn(\'' + res[r].resources[rr].url + '\')"><i class="fas fa-arrow-circle-down"></i></a>',
+											'view': '<a class="zoom" title="Zoom" style="margin-right: 10px;"><i class="fas fa-chart-bar"></i></a>'
+										})
 									}
 								}
-
-								$(element[0]).bootstrapTable({
-									stickyHeader: true,
-									cache: false,
-									height: $("#table-s").height(),
-									width: '100 %',
-									undefinedText: "",
-									striped: false,
-									pagination: false,
-									minimumCountColumns: 1,
-									//sortName: config.sortProperty,
-									//sortOrder: config.sortOrder,
-									//toolbar: "#syncselect",
-									search: true,
-									showHeader: false,
-									trimOnSearch: false,
-									showColumns: true,
-									showToggle: true,
-									groupByField: 'name',
-									groupBy: true,
-									columns: [
-										{
-											"field": "view",
-											"visible": true,
-											"sortable": false,
-											"title": "",
-											"align": "nom"
-												},
-										{
-											"field": "actions",
-											"visible": true,
-											"sortable": true,
-											"title": "",
-											"align": "center"
-				    							},
-										{
-											"field": "name",
-											"visible": false,
-											"sortable": true,
-											"title": "name",
-											"align": "nom"
-												},
-										{
-											"field": "file",
-											"visible": true,
-											"sortable": true,
-											"title": "file"
-				    							},
-										{
-											"field": "year",
-											"visible": true,
-											"sortable": true,
-											"title": "year"
-				    							},
-										{
-											"field": "format",
-											"visible": true,
-											"sortable": true,
-											"title": "format"
-				    							},
-										{
-											"field": "url",
-											"visible": false,
-											"sortable": true,
-											"title": "nom"
-				    							},
-										{
-											"field": "downloads",
-											"visible": true,
-											"sortable": true,
-											"title": "downloads"
-				    							},
-
-
-											],
-									onClickRow: function (row) {
-
-									},
-									onDblClickRow: function (row) {
-										console.log(row.url);
-
-										$.ajax({
-											crossDomain: true,
-											type: 'GET',
-											url: 'test/download.csv', //row.url,
-											cache: true,
-											//jsonpCallback: "ckanTable",
-											//dataType: "jsonp",
-											success: function (res) {
-												//scope.text = res;
-												//scope.loading = false;
-												//scope.json = true;
-												//scope.parsed = true;
-												scope.fileName = row.file;
-												scope.json = null;
-												scope.text = res;
-												scope.parse(res);
-
-											},
-										})
-									},
-									//							rowStyle: function (row, index) {
-									//								//return rowStyle(row, index)
-									//							},
-								});
-
-
-								$(element[0]).bootstrapTable("load", JSON.parse(JSON.stringify(res2)));
-								$('.info.groupBy.expanded').trigger('click');
-
 							}
 
-						}).done(function () {
-							//console.log('dsdsdfsafasf')
-							//scope.loading = false;
+							$(element[0]).bootstrapTable({
+								stickyHeader: true,
+								cache: false,
+								height: $("#table-s").height(),
+								width: '100 %',
+								undefinedText: "",
+								striped: false,
+								pagination: false,
+								minimumCountColumns: 1,
+								search: true,
+								showHeader: false,
+								trimOnSearch: false,
+								showColumns: true,
+								showToggle: true,
+								groupByField: 'name',
+								groupBy: true,
+								columns: [
+//									{
+//										"field": "view",
+//										"visible": true,
+//										"sortable": false,
+//										"title": "",
+//										"align": "nom"
+//												},
+									{
+										"field": "name",
+										"visible": false,
+										"sortable": true,
+										"title": "name",
+										"align": "nom"
+												},
+									{
+										"field": "file",
+										"visible": true,
+										"sortable": true,
+										"title": "file"
+				    							},
+									{
+										"field": "year",
+										"visible": true,
+										"sortable": true,
+										"title": "year"
+				    							},
+									{
+										"field": "format",
+										"visible": true,
+										"sortable": true,
+										"title": "format"
+				    							},
+									{
+										"field": "url",
+										"visible": false,
+										"sortable": true,
+										"title": "nom"
+				    							},
+									{
+										"field": "downloads",
+										"visible": true,
+										"sortable": true,
+										"title": "downloads"
+				    							},
+									{
+										"field": "actions",
+										"visible": true,
+										"sortable": true,
+										"title": "",
+										"align": "center"
+				    							},
+											],
+
+								onClickRow: function (row) {},
+
+								onDblClickRow: function (row) {
+									//$http.jsonp($sce.trustAsResourceUrl(row.url), {
+									$http.get('test/download.csv', {
+										//jsonpCallbackParam: 'callback',
+										cache: true,
+										headers: {
+											'Access-Control-Allow-Headers': 'Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With',
+											'Access-Control-Allow-Origin': '*',
+											"Access-Control-Allow-Methods": "GET, PUT, POST"
+										},
+									}).then(function successCallback(res) {
+										console.log(res);
+										scope.fileName = row.file;
+										scope.json = null;
+										scope.text = res.data;
+										scope.parse(res.data);
+									}, function errorCallback(response) {
+										console.log(response);
+									});
+
+
+									/*
+									$.ajax({
+										crossDomain: true,
+										type: 'GET',
+										url: 'test/download.csv', //row.url,
+										cache: true,
+										//jsonpCallback: "ckanTable",
+										//dataType: "jsonp",
+										success: function (res) {
+											//scope.text = res;
+											//scope.loading = false;
+											//scope.json = true;
+											//scope.parsed = true;
+											scope.fileName = row.file;
+											scope.json = null;
+											scope.text = res;
+											scope.parse(res);
+										},
+									})
+									*/
+
+								},
+								//							rowStyle: function (row, index) {
+								//								//return rowStyle(row, index)
+								//							},
+							});
+
+
+							$(element[0]).bootstrapTable("load", JSON.parse(JSON.stringify(res2)));
+							$('.info.groupBy.expanded').trigger('click');
+						}, function errorCallback(response) {
+							console.log(response);
 						});
+
 					}
 
 
@@ -831,7 +805,7 @@ angular.module('raw.directives', [])
 
 			}
 		};
-	}])
+}])
 
 
 	.directive('copyButton', function () {

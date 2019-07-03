@@ -58,3 +58,23 @@ resize chart on resize
 - enable different downloads according chart...
 - maps only image?
 - export deckgl using jsonconverter
+
+
+
+///
+
+
+https://analisi.transparenciacatalunya.cat/ca/
+
+http://api.us.socrata.com/api/catalog/v1?offset=23&limit=47
+
+
+
+https://analisi.transparenciacatalunya.cat/api/catalog/v1?offset=23&limit=47
+
+https://analisi.transparenciacatalunya.cat/api/catalog/v1?offset=1000&limit=47
+
+
+
+
+

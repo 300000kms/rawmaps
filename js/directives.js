@@ -246,30 +246,46 @@ angular.module('raw.directives', [])
 						},
 						update: ordinalUpdate
 	        	},
-	        	/*{
-	        		type : 'Ordinal (max 20 categories)',
-	        		value : d3.scale.category20(),
-	        		reset : function(){ this.value.range(d3.scale.category20().range().map(d => { return d; })); },
-	        		update : ordinalUpdate
-	        	},
-	        	{
-	        		type : 'Ordinal B (max 20 categories)',
-	        		value : d3.scale.category20b(),
-	        		reset : function(){ this.value.range(d3.scale.category20b().range().map(d => { return d; })); },
-	        		update : ordinalUpdate
-	        	},
-	        	{
-	        		type : 'Ordinal C (max 20 categories)',
-	        		value : d3.scale.category20c(),
-	        		reset : function(){ this.value.range(d3.scale.category20c().range().map(d => { return d; })); },
-	        		update : ordinalUpdate
-	        	},
-	        	{
-	        		type : 'Ordinal (max 10 categories)',
-	        		value : d3.scale.category10(),
-	        		reset : function(){ this.value.range(d3.scale.category10().range().map(d => { return d; })); },
-	        		update : ordinalUpdate
-	        	},*/
+//					{
+//						type: 'Ordinal (max 20 categories)',
+//						value: d3.scale.category20(),
+//						reset: function () {
+//							this.value.range(d3.scale.category20().range().map(d => {
+//								return d;
+//							}));
+//						},
+//						update: ordinalUpdate
+//	        	},
+//					{
+//						type: 'Ordinal B (max 20 categories)',
+//						value: d3.scale.category20b(),
+//						reset: function () {
+//							this.value.range(d3.scale.category20b().range().map(d => {
+//								return d;
+//							}));
+//						},
+//						update: ordinalUpdate
+//	        	},
+//					{
+//						type: 'Ordinal C (max 20 categories)',
+//						value: d3.scale.category20c(),
+//						reset: function () {
+//							this.value.range(d3.scale.category20c().range().map(d => {
+//								return d;
+//							}));
+//						},
+//						update: ordinalUpdate
+//	        	},
+//					{
+//						type: 'Ordinal (max 10 categories)',
+//						value: d3.scale.category10(),
+//						reset: function () {
+//							this.value.range(d3.scale.category10().range().map(d => {
+//								return d;
+//							}));
+//						},
+//						update: ordinalUpdate
+//	        	},
 					{
 						type: 'Linear (numeric)',
 						value: d3.scaleLinear().range(["#f7fbff", "#08306b"]),
@@ -738,9 +754,7 @@ angular.module('raw.directives', [])
 				    							},
 											],
 
-								onClickRow: function (row) {},
-
-								onDblClickRow: function (row) {
+								onClickRow: function (row) {
 									//$http.jsonp($sce.trustAsResourceUrl(row.url), {
 									$http.get('test/download.csv', {
 										//jsonpCallbackParam: 'callback',
@@ -760,32 +774,12 @@ angular.module('raw.directives', [])
 										console.log(response);
 									});
 
+								},
 
-									/*
-									$.ajax({
-										crossDomain: true,
-										type: 'GET',
-										url: 'test/download.csv', //row.url,
-										cache: true,
-										//jsonpCallback: "ckanTable",
-										//dataType: "jsonp",
-										success: function (res) {
-											//scope.text = res;
-											//scope.loading = false;
-											//scope.json = true;
-											//scope.parsed = true;
-											scope.fileName = row.file;
-											scope.json = null;
-											scope.text = res;
-											scope.parse(res);
-										},
-									})
-									*/
+								onDblClickRow: function (row) {
+
 
 								},
-								//							rowStyle: function (row, index) {
-								//								//return rowStyle(row, index)
-								//							},
 							});
 
 

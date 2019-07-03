@@ -5,27 +5,27 @@
 	<title>RAWMAPS</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="Keywords" content="RAW,visualization,data,design,spreadsheet,interface,vector graphics,SVG,PNG,JSON">
-	<meta name="Description" content="RAW, missing link between spreadsheets and data visualization, by DensityDesign and Calibro, Giorgio Caviglia, Matteo Azzi, Michele Mauri, Giorgio Uboldi, Tommaso Elli">
-	<meta name="author" content="DensityDesign Research Lab and Studio Calibro">
+	<meta name="Keywords" content="RAW, RAWMAPS, maps, visualization,data,design,spreadsheet,interface,vector graphics,SVG,PNG,JSON">
+	<meta name="Description" content="RAWMaps is a fork of RawGraphs, missing link between spreadsheets and data visualization">
+	<meta name="author" content="300.000Km/s">
 
 	<!-- Social Networks meta tags -->
-	<meta property="og:title" content="RAWGraphs">
+	<meta property="og:title" content="RAWMaps">
 	<meta property="og:description" content="The missing link between spreadsheets and data visualization.">
 	<meta property="og:image" content="http://app.rawgraphs.io/imgs/cover-for-socials.jpg">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
-	<meta property="og:url" content="http://app.rawgraphs.io/">
+	<meta property="og:url" content="http://rawmaps.300000kms.net/">
 	<meta property="og:type" content="article">
 
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:site" content="@rawgraphs">
+	<meta name="twitter:site" content="@300000kms">
 
 	<script>
 		document.write('<base href="' + document.location + '" />');
 	</script>
 
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic|Roboto:400,700italic,900italic,500italic,400italic,100italic,300italic,900,700,500,300,100|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,800,700|Chivo:400,900,400italic,900italic|Pacifico|Dancing+Script:400,700|Cousine:400,700|Arimo:300,400,300italic,400italic,700|Nunito:400,300,700|Oxygen:400,700,300|Lato:100,200,400,700,900&subset=latin,latin-ext" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic|Cousine:400,700|Lato:100,200,400,700,900&subset=latin,latin-ext" />
 
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="bower_components/bootstrap-table/dist/bootstrap-table.css" />
@@ -34,7 +34,6 @@
 
 	<!--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">-->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet">
-
 
 	<link rel="stylesheet" type="text/css" href="bower_components/codemirror/lib/codemirror.css">
 
@@ -57,19 +56,21 @@
                     <span class="icon-bar"></span>
                 </button>
 				<a class="navbar-brand" href="http://rawgraphs.io/" target="_blank">
-					<img alt="RawGraphs" src="imgs/rawgraphslogo.png">
+					<img alt="RawGraphs" src="imgs/rawmapslogo.png">
 				</a>
 			</div>
 
 			<nav class="collapse navbar-collapse" role="navigation" id="raw-navbar">
 				<ul class="nav navbar-nav navbar-right">
+					<!--
 					<li><a href="http://rawgraphs.io/about/" target="_blank">About</a></li>
 					<li><a href="http://rawgraphs.io/gallery/" target="_blank">Gallery</a></li>
 					<li><a href="http://rawgraphs.io/learning/" target="_blank">Learning</a></li>
 					<li><a href="https://github.com/densitydesign/raw/wiki/FAQs" target="_blank">FAQs</a></li>
 					<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdfbS0TsyQEXdNfYp9XkiDx5pzwEYfKCmplDJTz1VPAm1R6VA/viewform" target="_blank">User survey</a></li>
 					<li><a href="https://github.com/densitydesign/raw/wiki/Developer-Guide" target="_blank">Developer Guide</a></li>
-					<li><a href="https://github.com/densitydesign/raw" target="_blank" style="font-size:23px"><i class="fa fa-github"></i></a></li>
+-->
+					<li><a href="https://github.com/densitydesign/raw" target="_blank" style="font-size:23px"><i class="fab fa-github"></i></a></li>
 				</ul>
 			</nav>
 
@@ -84,17 +85,20 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
-					<p><strong>RAW</strong> is an open source project by <a href="http://www.densitydesign.org">DensityDesign Lab</a> and <a href="http://calib.ro">Calibro</a></p>
-					<p><a href="https://www.giorgiocaviglia.com" target="_blank">Giorgio Caviglia,</a> <a href="http://www.densitydesign.org/person/michele-mauri/" target="_blank">Michele Mauri</a>, <a href="http://calib.ro" target="_blank">Giorgio Uboldi</a>, <a href="http://calib.ro" target="_blank">Matteo Azzi</a></p>
-					<p>&copy; 2013-2017 (<a href="https://raw.github.com/densitydesign/raw/master/LICENSE">Apache License 2.0</a>)</p>
+					<p><strong>RAWMAPS</strong> is an open source project by <a href="http://www.300000kms.net">300.000Km/s</a></p>
+					<p>forked from the awesome <a href="https://rawgraphs.io/" target="_blank">RAWGraphs</a></p>
+					<p>&copy; 2019 (<a href="https://raw.github.com/300000kms/rawmaps/master/LICENSE">Apache License 2.0</a>)</p>
+					<br>
+					<p>This fork was developed with the support of:</p>
+					<p><img src="bcnactiva.png" style="height:40px" /></p>
 				</div>
 				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-					<p><a href="mailto:hello@rawgraphs.io"><i class="fa fa-envelope breath-right"></i>hello@rawgraphs.io</a></p>
-					<p><a href="http://twitter.com/rawgraphs"><i class="fa fa-twitter breath-right"></i>rawgraphs</a></p>
+					<p><a href="mailto:info@300000kms.net"><i class="fa fa-envelope breath-right"></i>info@300000kms.net</a></p>
+					<p><a href="http://twitter.com/300000kms"><i class="fab fa-twitter breath-right"></i>300.000Km/s</a></p>
 				</div>
 				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
-					<p><a href="http://github.com/densitydesign/raw"><i class="fa fa-github breath-right"></i>GitHub</a></p>
-					<p><a href="https://groups.google.com/forum/?hl=en#!forum/densitydesign-raw"><i class="fa fa-google breath-right"></i>Google group</a></p>
+					<p><a href="https://github.com/300000kms/rawmaps"><i class="fab fa-github breath-right"></i>RAWMaps GitHub</a></p>
+					<p><a href="http://github.com/densitydesign/raw"><i class="fab fa-github breath-right"></i>RAWGraphs GitHub</a></p>
 				</div>
 			</div>
 		</div>

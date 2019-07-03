@@ -19,8 +19,22 @@
 		.defaultValue(1)
 		.fitToWidth(true);
 
-	//	var colors = chart.color()
-	//		.title("Color scale");
+	var cr1 = chroma.scale(['rgb(250, 250, 110)', 'rgb(42, 72, 88)', 'rgb(0,0,0)']).mode('rgb').colors(6).map(function (x) {
+		return chroma(x).rgb();
+	});
+
+	var cr2 = [[255, 255, 255], [255, 255, 0], [255, 0, 0], [0, 0, 0]];
+
+
+	var colorRamp = chart.list2()
+		.title("Colors")
+		.values([
+            ['cr1', 'ramp1'],
+            ['cr2', 'ramp2']
+    ])
+		.defaultValue('cr1');
+
+
 
 	chart.draw((selection, data) => {
 		let da = [];
@@ -36,10 +50,6 @@
 				da.push([data[x].x, data[x].y, data[x].size]);
 			}
 		}
-
-		colors.domain(xx, d => {
-			return d.color;
-		});
 
 		xx = d3.median(xx);
 		yy = d3.median(yy);
@@ -78,22 +88,6 @@
 		];
 
 		function renderLayer() {
-			//			const hexagonLayer = new HexagonLayer({
-			//				id: 'deckMap',
-			//				colorRange: COLOR_RANGE,
-			//				data: da,
-			//				elevationRange: [0, 1000],
-			//				elevationScale: 250,
-			//				extruded: true,
-			//				getPosition: d => d,
-			//				opacity: 1,
-			//				radius: radius(),
-			//				coverage: coverage(),
-			//				upperPercentile: upperPercentile()
-			//			});
-
-
-
 			const layer = new ScatterplotLayer({
 				id: 'deckMap',
 				data: da,

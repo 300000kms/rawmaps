@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="logosvg.svg">
+   sodipodi:docname="logosvg.svg"
+   inkscape:export-filename="/mnt/data/_sync/19006 impulsem/30 apps/20 raw/raw/imgs/rawmapslogo.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -26,10 +29,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="97.764383"
+     inkscape:cx="83.495978"
      inkscape:cy="-11.65142"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
      units="px"
      inkscape:window-width="1871"
@@ -58,7 +61,7 @@
        xml:space="preserve"
        id="flowRoot4136"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(1.1199553,0,0,1.1199553,-140.88885,683.10907)"><flowRegion
+       transform="matrix(1.1199553,0,0,1.1199553,-232.30766,767.20426)"><flowRegion
          id="flowRegion4138"><rect
            id="rect4140"
            width="442.85715"
@@ -66,24 +69,50 @@
            x="168.57143"
            y="289.50507" /></flowRegion><flowPara
          id="flowPara4142"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:'Hind Madurai SemiBold';-inkscape-font-specification:'Hind Madurai SemiBold, Semi-Bold';fill:#ff00ff;fill-opacity:1">WM</flowPara></flowRoot>  </g>
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:'Hind Madurai SemiBold';-inkscape-font-specification:'Hind Madurai SemiBold, Semi-Bold';fill:#ff00a8;fill-opacity:1">WM</flowPara></flowRoot>  </g>
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Capa 2"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <flowRoot
-       transform="matrix(1.1199553,0,0,1.1199553,-188.36955,-329.71484)"
+       transform="matrix(1.1199553,0,0,1.1199553,-189.65255,-333.77576)"
        xml:space="preserve"
        id="flowRoot4136-3"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#464646;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
          id="flowRegion4138-0"><rect
            id="rect4140-7"
            width="442.85715"
            height="142.85715"
            x="168.57143"
-           y="289.50507" /></flowRegion><flowPara
+           y="289.50507"
+           style="fill:#464646;fill-opacity:1" /></flowRegion><flowPara
          id="flowPara4142-2"
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Hind Madurai Light';-inkscape-font-specification:'Hind Madurai Light, Light';fill:#00ff00;fill-opacity:1">RA       APS</flowPara></flowRoot>  </g>
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:35.71570969px;font-family:'Lato Black';-inkscape-font-specification:'Lato Black, Heavy';fill:#464646;fill-opacity:1">RAW</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4136-3-9"
+       style="font-style:normal;font-weight:normal;font-size:44.79821014px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:0.51690823;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(-55.086077,-37.510748)"><flowRegion
+         id="flowRegion4138-0-2"><rect
+           id="rect4140-7-8"
+           width="495.98019"
+           height="159.99362"
+           x="-3.5847969"
+           y="-9.3857899"
+           style="fill:#000000;fill-opacity:0.51690823" /></flowRegion><flowPara
+         id="flowPara4142-2-9"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Hind Madurai Light';-inkscape-font-specification:'Hind Madurai Light, Light';fill:#000000;fill-opacity:0.51690823">RA       APS</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4136-3-4"
+       style="font-style:normal;font-weight:normal;font-size:44.79821014px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#e91e62;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(97.55478,2.954984)"><flowRegion
+         id="flowRegion4138-0-5"><rect
+           id="rect4140-7-2"
+           width="495.98019"
+           height="159.99362"
+           x="-3.1592138"
+           y="-13.423553"
+           style="fill:#e91e62;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara4142-2-5"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:40px;font-family:'Lato Light';-inkscape-font-specification:'Lato Light, Light';fill:#e91e62;fill-opacity:1">Maps</flowPara></flowRoot>  </g>
 </svg>

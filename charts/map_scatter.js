@@ -19,20 +19,32 @@
 		.defaultValue(1)
 		.fitToWidth(true);
 
-	var cr1 = chroma.scale(['rgb(250, 250, 110)', 'rgb(42, 72, 88)', 'rgb(0,0,0)']).mode('rgb').colors(6).map(function (x) {
+
+
+	var cr1 = chroma.scale(['rgb(250, 250, 110)', 'rgb(255, 0, 235)', 'rgb(0,0,0)']).mode('rgb').colors(6).map(function (x) {
 		return chroma(x).rgb();
 	});
 
-	var cr2 = [[255, 255, 255], [255, 255, 0], [255, 0, 0], [0, 0, 0]];
+	var cr2 = chroma.scale(['rgb(255, 255, 255)', 'rgb(0, 226, 255)', 'rgb(0,0,0)']).mode('rgb').colors(6).map(function (x) {
+		return chroma(x).rgb();
+	});
 
+	var cr3 = chroma.scale(['rgb(255, 255, 0)', 'rgb(0, 226, 255)', 'rgb(0, 0, 255)', 'rgb(0,0,0)']).mode('rgb').colors(6).map(function (x) {
+		return chroma(x).rgb();
+	});
+
+	var cr4 = chroma.scale(['rgb(255, 0, 0)', 'rgb(255, 255, 255)', 'rgb(0, 226, 255)']).mode('rgb').colors(6).map(function (x) {
+		return chroma(x).rgb();
+	});
 
 	var colorRamp = chart.list2()
 		.title("Colors")
 		.values([
             ['cr1', 'ramp1'],
-            ['cr2', 'ramp2']
+            ['cr2', 'ramp2'],
+			['cr3', 'ramp2'],
+			['cr4', 'ramp2'],
     ])
-		.defaultValue('cr1');
 
 
 
@@ -88,6 +100,43 @@
 		];
 
 		function renderLayer() {
+
+			const tileServer = 'http://d.tile.stamen.com/toner-lines/';
+			const tlayer = new TileLayer({
+				pickable: true,
+				opacity: 0.8,
+				minZoom: 0,
+				maxZoom: 19,
+				getTileData: ({
+					x,
+					y,
+					z
+				}) => {
+					const mapSource = `${tileServer}/${z}/${x}/${y}.png`;
+					return fetch(mapSource)
+						.then(response => {
+							return mapSource
+						})
+				},
+
+				renderSubLayers: props => {
+					const {
+						bbox: {
+							west,
+							south,
+							east,
+							north
+						}
+					} = props.tile;
+
+					return new BitmapLayer(props, {
+						data: null,
+						image: props.data, //props.data,
+						bounds: [west, south, east, north]
+					});
+				}
+			});
+
 			const layer = new ScatterplotLayer({
 				id: 'deckMap',
 				data: da,
@@ -115,7 +164,7 @@
 
 
 			deckgl.setProps({
-				layers: [layer]
+				layers: [layer, tlayer]
 			});
 		}
 

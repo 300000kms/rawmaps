@@ -649,7 +649,8 @@ angular.module('raw.directives', [])
 		return {
 			restrict: 'A',
 			link: function postLink(scope, element, attrs) {
-				var proxy = 'http://od.300000kms.net/get.cgi?url='
+				//var proxy = 'http://od.300000kms.net/get.cgi?url='
+				var proxy = 'http://rawmaps.300000kms.net/proxy/get.cgi?url=';
 				scope.$watch('parseodbcn', function () {
 					scope.loading = true;
 					if (scope.parseodbcn == true) {
@@ -756,7 +757,8 @@ angular.module('raw.directives', [])
 
 								onClickRow: function (row) {
 									//$http.jsonp($sce.trustAsResourceUrl(row.url), {
-									$http.get('test/download.csv', {
+									console.log(proxy + row.url);
+									$http.get(proxy + row.url, {
 										//jsonpCallbackParam: 'callback',
 										cache: true,
 										headers: {
@@ -765,14 +767,11 @@ angular.module('raw.directives', [])
 											"Access-Control-Allow-Methods": "GET, PUT, POST"
 										},
 									}).then(function successCallback(res) {
-										console.log(res);
 										scope.fileName = row.file;
 										scope.json = null;
 										scope.text = res.data;
 										scope.parse(res.data);
-									}, function errorCallback(response) {
-										console.log(response);
-									});
+									}, function errorCallback(response) {});
 
 								},
 

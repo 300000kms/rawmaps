@@ -1,0 +1,1 @@
+es necesario modificar los permisos de get.cgi a 755

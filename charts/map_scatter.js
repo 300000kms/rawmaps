@@ -7,7 +7,7 @@
 	var chart = raw.map()
 		.title('Scatter map')
 		.description(
-			"A scatter plot, scatterplot, or scattergraph is a type of mathematical diagram using Cartesian coordinates to display values for two variables for a set of data. The data is displayed as a collection of points, each having the value of one variable determining the position on the horizontal axis and the value of the other variable determining the position on the vertical axis. This kind of plot is also called a scatter chart, scattergram, scatter diagram, or scatter graph.")
+			"The Scatterplot map takes in paired latitude and longitude coordinated points and renders them as circles with a certain radius.")
 		.thumbnail("imgs/scatterPlot.png")
 		.category('Map')
 		.model(points);

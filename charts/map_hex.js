@@ -6,7 +6,7 @@
 	var chart = raw.map()
 		.title('Hex map')
 		.description(
-			"A scatter plot, scatterplot, or scattergraph is a type of mathematical diagram using Cartesian coordinates to display values for two variables for a set of data. The data is displayed as a collection of points, each having the value of one variable determining the position on the horizontal axis and the value of the other variable determining the position on the vertical axis. This kind of plot is also called a scatter chart, scattergram, scatter diagram, or scatter graph.")
+			"The Hexagon map renders a hexagon heatmap based on an array of points. It takes the radius of hexagon bin, projects points into hexagon bins. The color and height of the hexagon is scaled by number of points it contains.")
 		.thumbnail("imgs/scatterPlot.png")
 		.category('Map')
 		.model(points);

@@ -5,7 +5,7 @@
 	//
 	var chart = raw.map()
 		.title('Polygon map')
-		.description("A")
+		.description("The Polygon map renders filled and/or stroked polygons.")
 		.thumbnail("imgs/scatterPlot.png")
 		.category('Map')
 		.model(points);
@@ -27,12 +27,12 @@
 	var cr3 = chroma.scale(['rgb(255, 255, 0)', 'rgb(0, 226, 255)', 'rgb(0, 0, 255)', 'rgb(0,0,0)']).mode('rgb').colors(6).map(function (x) {
 		return chroma(x).rgb();
 	});
-	
+
 	var cr4 = chroma.scale(['rgb(255, 0, 0)', 'rgb(255, 255, 255)', 'rgb(0, 226, 255)']).mode('rgb').colors(6).map(function (x) {
 		return chroma(x).rgb();
 	});
 
-	
+
 	var colorRamp = chart.list2()
 		.title("Colors")
 		.values([

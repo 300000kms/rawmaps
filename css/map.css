@@ -1,3 +1,8 @@
+.alert {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
 .btn-xs {
 	margin: 2px;
 }
@@ -186,6 +191,14 @@ input[type=range]::-webkit-slider-runnable-track {
 
 input[type=range]::-webkit-slider-thumb {
 	margin-top: -10px;
+}
+
+::-moz-selection {
+	background: rgba(233, 30, 99, 0.2);
+}
+
+::selection {
+	background: rgba(233, 30, 99, 0.2);
 }
 
 

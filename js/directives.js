@@ -758,6 +758,7 @@ angular.module('raw.directives', [])
 								onClickRow: function (row) {
 									//$http.jsonp($sce.trustAsResourceUrl(row.url), {
 									console.log(proxy + row.url);
+									scope.loading = true;
 									$http.get(proxy + row.url, {
 										//jsonpCallbackParam: 'callback',
 										cache: true,
@@ -767,6 +768,7 @@ angular.module('raw.directives', [])
 											"Access-Control-Allow-Methods": "GET, PUT, POST"
 										},
 									}).then(function successCallback(res) {
+										scope.loading = false;
 										scope.fileName = row.file;
 										scope.json = null;
 										scope.text = res.data;

@@ -21,30 +21,30 @@
 
 
 
-	var cr1 = chroma.scale(['rgb(250, 250, 110)', 'rgb(255, 0, 235)', 'rgb(0,0,0)']).mode('rgb').colors(6).map(function (x) {
+	var cr1 = chroma.scale(['rgb(250, 250, 110)', 'rgb(255, 0, 235)', 'rgb(0,0,0)']).mode('rgb').colors(10).map(function (x) {
 		return chroma(x).rgb();
 	});
 
-	var cr2 = chroma.scale(['rgb(255, 255, 255)', 'rgb(0, 226, 255)', 'rgb(0,0,0)']).mode('rgb').colors(6).map(function (x) {
+	var cr2 = chroma.scale(['rgb(255, 255, 255)', 'rgb(0, 226, 255)', 'rgb(0,0,0)']).mode('rgb').colors(10).map(function (x) {
 		return chroma(x).rgb();
 	});
 
-	var cr3 = chroma.scale(['rgb(255, 255, 0)', 'rgb(0, 226, 255)', 'rgb(0, 0, 255)', 'rgb(0,0,0)']).mode('rgb').colors(6).map(function (x) {
+	var cr3 = chroma.scale(['rgb(255, 255, 0)', 'rgb(0, 226, 255)', 'rgb(0, 0, 255)', 'rgb(0,0,0)']).mode('rgb').colors(10).map(function (x) {
 		return chroma(x).rgb();
 	});
 
-	var cr4 = chroma.scale(['rgb(255, 0, 0)', 'rgb(255, 255, 255)', 'rgb(0, 226, 255)']).mode('rgb').colors(6).map(function (x) {
+	var cr4 = chroma.scale(['rgb(255, 0, 0)', 'rgb(255, 255, 255)', 'rgb(0, 226, 255)']).mode('rgb').colors(10).map(function (x) {
 		return chroma(x).rgb();
 	});
 
 	var colorRamp = chart.list2()
 		.title("Colors")
 		.values([
-            ['cr1', 'ramp1'],
-            ['cr2', 'ramp2'],
-			['cr3', 'ramp2'],
-			['cr4', 'ramp2'],
-    ])
+            ['cr1', 'colorscale 1: ' + raw.makeLegend(cr1)],
+            ['cr2', 'colorscale 2 ' + raw.makeLegend(cr2)],
+			['cr3', 'colorscale 3: ' + raw.makeLegend(cr3)],
+			['cr4', 'colorscale 4: ' + raw.makeLegend(cr4)],
+    ]).defaultValue('cr1');
 
 
 

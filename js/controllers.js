@@ -353,6 +353,10 @@ angular.module('raw.controllers', [])
 		$scope.defaultChart = 'Hex map';
 		//  $scope.loading = true;
 
+		$scope.trustAsHtml = function (string) {
+			return $sce.trustAsHtml(string);
+		};
+
 		$scope.importMode = 'clipboard';
 
 		$scope.categories = ['Hierarchies', 'Time Series', 'Distributions', 'Correlations', 'Others'];
@@ -494,8 +498,8 @@ angular.module('raw.controllers', [])
 
 
 		$scope.parse = text => {
-
 			if ($scope.model) $scope.model.clear();
+
 			$scope.loading = false;
 			$scope.text = text;
 			$scope.data = [];
@@ -509,6 +513,7 @@ angular.module('raw.controllers', [])
 			try {
 				var parser = raw.parser();
 				$scope.data = parser(text);
+
 				$scope.metadata = parser.metadata(text);
 				$scope.error = false;
 				pivotable($scope.data);
@@ -525,6 +530,7 @@ angular.module('raw.controllers', [])
 					$scope.model = $scope.chart ? $scope.chart.model() : null;
 				});
 			} catch (e) {
+				console.log(e);
 				$scope.data = [];
 				$scope.metadata = [];
 				$scope.error = e.name == "ParseError" ? +e.message : false;

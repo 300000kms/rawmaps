@@ -662,7 +662,7 @@ angular.module('raw.directives', [])
 								'Access-Control-Allow-Origin': '*'
 							},
 							params: {
-								'rows': 50
+								'rows': 50000
 							},
 						}).then(function successCallback(res) {
 							scope.loading = false;
@@ -756,10 +756,12 @@ angular.module('raw.directives', [])
 											],
 
 								onClickRow: function (row) {
+									scope.error = false;
 									//$http.jsonp($sce.trustAsResourceUrl(row.url), {
 									console.log(proxy + row.url);
 									scope.loading = true;
 									$http.get(proxy + row.url, {
+										//$http.get('data/get.csv', {
 										//jsonpCallbackParam: 'callback',
 										cache: true,
 										headers: {
@@ -771,9 +773,14 @@ angular.module('raw.directives', [])
 										scope.loading = false;
 										scope.fileName = row.file;
 										scope.json = null;
-										scope.text = res.data;
+										//scope.text = res.data;
+										scope.error = false;
 										scope.parse(res.data);
-									}, function errorCallback(response) {});
+									}, function errorCallback(response) {
+										scope.loading = false;
+										console.log('not loaded :', response)
+										scope.error = 'Error loading dataset, try another one.';
+									});
 
 								},
 
@@ -802,6 +809,164 @@ angular.module('raw.directives', [])
 		};
 }])
 
+
+	//odDiba
+	.directive('odDiba', ['$http', '$sce', function ($http, $sce) {
+		return {
+			restrict: 'A',
+			link: function postLink(scope, element, attrs) {
+				//var proxy = 'http://od.300000kms.net/get.cgi?url='
+				var proxy = 'http://rawmaps.300000kms.net/proxy/get.cgi?url=';
+				scope.$watch('parseoddiba', function () {
+					scope.loading = true;
+					if (scope.parseoddiba == true) {
+
+						$http.jsonp($sce.trustAsResourceUrl('https://do.diba.cat/api/info/datasets'), {
+							//jsonpCallbackParam: 'callback',
+							//							cache: true,
+							//							headers: {
+							//								'Access-Control-Allow-Headers': 'Content-Type',
+							//								'Access-Control-Allow-Origin': '*'
+							//							},
+							//							params: {
+							//								'rows': 50
+							//							},
+						}).then(function successCallback(res) {
+							console.log(res);
+							scope.loading = false;
+							var res = res.data;
+							var res2 = [];
+							for (var r in res) {
+								res2.push({
+									'name': res[r].nom + '',
+									'format': '',
+									'url': res[r].machinename,
+									'downloads': '',
+									'year': res[r].creacio,
+									'file': '',
+									'actions': '<a class="zoom" title="Zoom" style="margin-right: 10px;" onclick="downloadOdbcn(\'' + 'xx' + '\')"><i class="fas fa-arrow-circle-down"></i></a>',
+									'view': '<a class="zoom" title="Zoom" style="margin-right: 10px;"><i class="fas fa-chart-bar"></i></a>'
+								})
+							}
+							console.log(res2)
+
+							$(element[0]).bootstrapTable({
+								stickyHeader: true,
+								cache: false,
+								height: $("#table-s").height(),
+								width: '100 %',
+								undefinedText: "",
+								striped: false,
+								pagination: false,
+								minimumCountColumns: 1,
+								search: true,
+								showHeader: false,
+								trimOnSearch: false,
+								showColumns: true,
+								showToggle: true,
+								groupByField: 'name',
+								groupBy: true,
+								columns: [
+
+									{
+										"field": "name",
+										"visible": false,
+										"sortable": true,
+										"title": "name",
+										"align": "nom"
+												},
+									{
+										"field": "file",
+										"visible": true,
+										"sortable": true,
+										"title": "file"
+				    							},
+									{
+										"field": "year",
+										"visible": true,
+										"sortable": true,
+										"title": "year"
+				    							},
+									{
+										"field": "format",
+										"visible": true,
+										"sortable": true,
+										"title": "format"
+				    							},
+									{
+										"field": "url",
+										"visible": false,
+										"sortable": true,
+										"title": "nom"
+				    							},
+									{
+										"field": "downloads",
+										"visible": true,
+										"sortable": true,
+										"title": "downloads"
+				    							},
+									{
+										"field": "actions",
+										"visible": true,
+										"sortable": true,
+										"title": "",
+										"align": "center"
+				    							},
+											],
+
+								onClickRow: function (row) {
+									scope.error = false;
+									//$http.jsonp($sce.trustAsResourceUrl(row.url), {
+									console.log(proxy + row.url);
+									scope.loading = true;
+									$http.get(proxy + row.url, {
+										//$http.get('data/get.csv', {
+										//jsonpCallbackParam: 'callback',
+										cache: true,
+										headers: {
+											'Access-Control-Allow-Headers': 'Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With',
+											'Access-Control-Allow-Origin': '*',
+											"Access-Control-Allow-Methods": "GET, PUT, POST"
+										},
+									}).then(function successCallback(res) {
+										scope.loading = false;
+										scope.fileName = row.file;
+										scope.json = null;
+										//scope.text = res.data;
+										scope.error = false;
+										scope.parse(res.data);
+									}, function errorCallback(response) {
+										scope.loading = false;
+										console.log('not loaded :', response)
+										scope.error = 'Error loading dataset, try another one.';
+									});
+
+								},
+
+								onDblClickRow: function (row) {
+
+
+								},
+							});
+
+
+							$(element[0]).bootstrapTable("load", JSON.parse(JSON.stringify(res2)));
+							$('.info.groupBy.expanded').trigger('click');
+						}, function errorCallback(response) {
+							console.log(response);
+						});
+
+					}
+
+
+
+				})
+
+
+
+			}
+		};
+}])
 
 	.directive('copyButton', function () {
 		return {

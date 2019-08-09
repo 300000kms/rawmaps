@@ -208,3 +208,55 @@ input[type=range]::-webkit-slider-thumb {
 #footer {
 	height: 255px;
 }
+
+
+/*------------------*/
+
+.alert-warning {
+	color: #fff;
+	background-color: #ff0000;
+}
+
+.btn.active,
+.btn:active {
+	background-image: none;
+	outline: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.dropdown-menu>.active>a,
+.dropdown-menu>.active>a:hover,
+.dropdown-menu>.active>a:focus {
+	background-color: #E91E63;
+}
+
+h3 .bullet {
+	display: inline-block;
+	background: #E91E63;
+	width: 26px;
+	height: 26px;
+	text-align: center;
+	border-radius: 100%;
+	font-size: 12px;
+	color: #fff;
+	line-height: 28px;
+	margin-right: 10px;
+	position: relative;
+	top: -1px;
+}
+
+.bullet {
+	display: inline-block;
+	background: #E91E63;
+	width: 16px;
+	height: 16px;
+	text-align: center;
+	border-radius: 100%;
+	font-size: 12px;
+	color: #fff;
+	line-height: 1.4em;
+	margin-right: 10px;
+	position: relative;
+	top: -1px;
+}

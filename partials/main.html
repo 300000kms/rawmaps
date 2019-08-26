@@ -64,6 +64,7 @@
 						<li role="presentation" ng-class="{active:!parsed && importMode=='openDataBcn'}"><a href="#" ng-click="parsed=false;importMode='openDataBcn';parseodbcn=true"><i class="fa fa-landmark"></i> 
 						Open Data Barcelona</a></li>
 						<li role="presentation" ng-class="{active:!parsed && importMode=='openDataDiba'}"><a href="#" ng-click="parsed=false;importMode='openDataDiba';parseoddiba=true"><i class="fa fa-landmark"></i> Open Data Diba</a></li>
+						<li role="presentation" ng-class="{active:!parsed && importMode=='openDataGencat'}"><a href="#" ng-click="parsed=false;importMode='openDataGencat';parseodgencat=true"><i class="fa fa-landmark"></i> Open Data Gencat</a></li>
 						<li role="presentation" ng-class="{active:!parsed && importMode=='clipboard'}"><a href="#" ng-click="parsed=false;importMode='clipboard'"><i class="fa fa-clipboard breath-right"></i>Paste</a></li>
 						<li role="presentation" ng-class="{active:!parsed && importMode=='file'}"><a href="#" ng-click="parsed=false;importMode='file'"><i class="fas fa-file-upload"></i> Upload a file</a></li>
 						<li role="presentation" ng-class="{active:!parsed && importMode=='url'}"><a href="#" ng-click="parsed=false;importMode='url'"><i class="fa fa-cloud breath-right"></i>From URL</a></li>
@@ -85,6 +86,12 @@
 					<!-- oddiba -->
 					<div class="openDataBcn" ng-show="importMode=='openDataDiba' && !json && !parsed">
 						<div od-diba class="data-table od"></div>
+						<div data-ng-show="loading==true" data-ng-hide="loading==false" class="alert alert-loading"><i class="fas fa-sync fa-spin breath-right"></i>Loading your data. Please wait.</div>
+					</div>
+
+					<!-- oddiba -->
+					<div class="openDataBcn" ng-show="importMode=='openDataGencat' && !json && !parsed">
+						<div od-gencat class="data-table od"></div>
 						<div data-ng-show="loading==true" data-ng-hide="loading==false" class="alert alert-loading"><i class="fas fa-sync fa-spin breath-right"></i>Loading your data. Please wait.</div>
 					</div>
 

@@ -848,7 +848,6 @@ angular.module('raw.directives', [])
 									'view': '<a class="zoom" title="Zoom" style="margin-right: 10px;"><i class="fas fa-chart-bar"></i></a>'
 								})
 							}
-							console.log(res2)
 
 							$(element[0]).bootstrapTable({
 								stickyHeader: true,
@@ -864,13 +863,13 @@ angular.module('raw.directives', [])
 								trimOnSearch: false,
 								showColumns: true,
 								showToggle: true,
-								groupByField: 'name',
-								groupBy: true,
+								//groupByField: 'name',
+								//groupBy: true,
 								columns: [
 
 									{
 										"field": "name",
-										"visible": false,
+										"visible": true,
 										"sortable": true,
 										"title": "name",
 										"align": "nom"
@@ -915,11 +914,14 @@ angular.module('raw.directives', [])
 											],
 
 								onClickRow: function (row) {
+									//https://dadesobertes.diba.cat/dades-obertes/documentacio-tecnica/api/metodes
 									scope.error = false;
 									//$http.jsonp($sce.trustAsResourceUrl(row.url), {
-									console.log(proxy + row.url);
+									// https://do.diba.cat/api/dataset/oficines_habitatge_detall
+									//console.log('https://do.diba.cat/api/dataset/' + row.url);
 									scope.loading = true;
-									$http.get(proxy + row.url, {
+									$http.get(proxy + 'https://do.diba.cat/api/dataset/' + row.url + '/format/csv', {
+										//$http.get(proxy + 'https://do.diba.cat/api/dataset/' + row.url, {
 										//$http.get('data/get.csv', {
 										//jsonpCallbackParam: 'callback',
 										cache: true,
@@ -949,24 +951,166 @@ angular.module('raw.directives', [])
 								},
 							});
 
-
 							$(element[0]).bootstrapTable("load", JSON.parse(JSON.stringify(res2)));
-							$('.info.groupBy.expanded').trigger('click');
+
+							//$('.info.groupBy.expanded').trigger('click');
+
 						}, function errorCallback(response) {
 							console.log(response);
 						});
-
 					}
-
-
-
 				})
-
-
-
 			}
 		};
 }])
+
+	//odGencat
+	.directive('odGencat', ['$http', '$sce', function ($http, $sce) {
+		return {
+			restrict: 'A',
+			link: function postLink(scope, element, attrs) {
+				//var proxy = 'http://od.300000kms.net/get.cgi?url='
+				var proxy = 'http://rawmaps.300000kms.net/proxy/get.cgi?url=';
+				scope.$watch('parseodgencat', function () {
+					scope.loading = true;
+					if (scope.parseodgencat == true) {
+
+						$http.get($sce.trustAsResourceUrl(proxy + 'http://api.eu.socrata.com/api/catalog/v1?domains=analisi.transparenciacatalunya.cat&search_context=analisi.transparenciacatalunya.cat&limit=1000')).then(function successCallback(res) {
+							console.log(res);
+							scope.loading = false;
+							var res = res.data.results;
+							var res2 = [];
+							var id = 0;
+							for (var r in res) {
+								console.log(res[r])
+								id += 1;
+								res2.push({
+									'id': id,
+									'name': res[r].resource.name + '',
+									'format': '',
+									'url': res[r].resource.id,
+									'downloads': res[r].resource.page_views.page_views_total + '',
+									'year': res[r].resource.updatedAt.slice(0, 10),
+									'file': '',
+									'actions': '<a class="zoom" title="Zoom" style="margin-right: 10px;" onclick="downloadOdbcn(\'' + 'xx' + '\')"><i class="fas fa-arrow-circle-down"></i></a>',
+									'view': '<a class="zoom" title="Zoom" style="margin-right: 10px;"><i class="fas fa-chart-bar"></i></a>'
+								})
+							}
+
+							$(element[0]).bootstrapTable({
+								stickyHeader: true,
+								cache: false,
+								height: $("#table-s").height(),
+								width: '100 %',
+								undefinedText: "",
+								striped: false,
+								pagination: false,
+								minimumCountColumns: 1,
+								search: true,
+								showHeader: false,
+								trimOnSearch: false,
+								showColumns: true,
+								showToggle: true,
+								//groupByField: 'name',
+								//groupBy: true,
+								columns: [
+									{
+										"field": "id",
+										"visible": true,
+										"sortable": true,
+										"title": "id",
+												},
+
+									{
+										"field": "name",
+										"visible": true,
+										"sortable": true,
+										"title": "name",
+												},
+									{
+										"field": "file",
+										"visible": true,
+										"sortable": true,
+										"title": "file"
+				    							},
+									{
+										"field": "year",
+										"visible": true,
+										"sortable": true,
+										"title": "year"
+				    							},
+									{
+										"field": "format",
+										"visible": true,
+										"sortable": true,
+										"title": "format"
+				    							},
+									{
+										"field": "url",
+										"visible": false,
+										"sortable": true,
+										"title": "nom"
+				    							},
+									{
+										"field": "downloads",
+										"visible": true,
+										"sortable": true,
+										"title": "downloads"
+				    							},
+									{
+										"field": "actions",
+										"visible": true,
+										"sortable": true,
+										"title": "",
+										"align": "center"
+				    							},
+											],
+
+								onClickRow: function (row) {
+									//https://analisi.transparenciacatalunya.cat/resource/hb6v-jcbf.json
+									scope.error = false;
+									scope.loading = true;
+									$http.get(proxy + 'https://analisi.transparenciacatalunya.cat/resource/' + row.url + '.csv', {
+										cache: true,
+										headers: {
+											'Access-Control-Allow-Headers': 'Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With',
+											'Access-Control-Allow-Origin': '*',
+											"Access-Control-Allow-Methods": "GET, PUT, POST"
+										},
+									}).then(function successCallback(res) {
+										scope.loading = false;
+										scope.fileName = row.file;
+										scope.json = null;
+										//scope.text = res.data;
+										scope.error = false;
+										scope.parse(res.data);
+									}, function errorCallback(response) {
+										scope.loading = false;
+										console.log('not loaded :', response)
+										scope.error = 'Error loading dataset, try another one.';
+									});
+
+								},
+
+								onDblClickRow: function (row) {
+
+
+								},
+							});
+
+							$(element[0]).bootstrapTable("load", JSON.parse(JSON.stringify(res2)));
+
+							//$('.info.groupBy.expanded').trigger('click');
+
+						}, function errorCallback(response) {
+							console.log(response);
+						});
+					}
+				})
+			}
+		};
+}])
+
 
 	.directive('copyButton', function () {
 		return {

@@ -77,4 +77,14 @@ https://analisi.transparenciacatalunya.cat/api/catalog/v1?offset=1000&limit=47
 
 
 
+//geneapi
+https://analisi.transparenciacatalunya.cat/resource/hb6v-jcbf.csv
+https://analisi.transparenciacatalunya.cat/api/views/hb6v-jcbf/rows.csv?accessType=DOWNLOAD&api_foundry=true
 
+https://analisi.transparenciacatalunya.cat/resource/hb6v-jcbf.json
+https://dev.socrata.com/foundry/analisi.transparenciacatalunya.cat/hb6v-jcbf
+
+
+http://api.eu.socrata.com/api/catalog/v1?domains=analisi.transparenciacatalunya.cat
+
+http://api.eu.socrata.com/api/catalog/v1?domains=analisi.transparenciacatalunya.cat&search_context=analisi.transparenciacatalunya.cat

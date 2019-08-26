@@ -131,11 +131,11 @@
 
 		function renderLayer() {
 
-			const tileServer = 'http://d.tile.stamen.com/toner-lines/';
+			const tileServer = 'http://d.tile.stamen.com/toner/';
 
 			const tlayer = new TileLayer({
 				pickable: true,
-				opacity: 0.1,
+				opacity: 0.8,
 				minZoom: 0,
 				maxZoom: 19,
 				getTileData: ({

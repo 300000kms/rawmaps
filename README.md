@@ -26,7 +26,12 @@ We have added:
 
 ## License
 
-RAWGraphs is provided under the [Apache License 2.0](https://github.com/densitydesign/raw/blob/master/LICENSE):
+RAWMAPS is provided under the [Apache License 2.0](https://github.com/densitydesign/raw/blob/master/LICENSE)
+
+Developed by [300.000Km/s](http://www.300000kms.net)
+<img src="https://github.com/300000kms/rawmaps/raw/300milbranch/300000kms.png" height="50px">
+
+With the support and help of:
 
 <img src="https://github.com/300000kms/rawmaps/raw/300milbranch/bcnactiva.png" height="50px">
 

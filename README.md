@@ -28,5 +28,5 @@ We have added:
 
 RAWGraphs is provided under the [Apache License 2.0](https://github.com/densitydesign/raw/blob/master/LICENSE):
 
-<img src="https://github.com/300000kms/rawmaps/raw/300milbranch/bcnactiva.png" style="height:50px">
+<img src="https://github.com/300000kms/rawmaps/raw/300milbranch/bcnactiva.png" height="50px">
 

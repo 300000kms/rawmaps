@@ -974,15 +974,15 @@ angular.module('raw.directives', [])
 				scope.$watch('parseodgencat', function () {
 					scope.loading = true;
 					if (scope.parseodgencat == true) {
-
-						$http.get($sce.trustAsResourceUrl(proxy + 'http://api.eu.socrata.com/api/catalog/v1?domains=analisi.transparenciacatalunya.cat&search_context=analisi.transparenciacatalunya.cat&limit=1000')).then(function successCallback(res) {
-							console.log(res);
+						$http.get(proxy + 'http://api.eu.socrata.com/api/catalog/v1?domains=analisi.transparenciacatalunya.cat&search_context=analisi.transparenciacatalunya.cat&limit=10000').then(function successCallback(res) {
+							console.log(proxy + 'http://api.eu.socrata.com/api/catalog/v1?domains=analisi.transparenciacatalunya.cat&search_context=analisi.transparenciacatalunya.cat&offset=500&limit=10000')
 							scope.loading = false;
 							var res = res.data.results;
+							console.log(res, res.length)
 							var res2 = [];
 							var id = 0;
 							for (var r in res) {
-								console.log(res[r])
+								//console.log(res[r])
 								id += 1;
 								res2.push({
 									'id': id,

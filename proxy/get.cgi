@@ -12,12 +12,15 @@ def pagefetch(url):
     return data
 
 arg = cgi.FieldStorage()
+url = arg['url'].value
+for a in arg.keys():
+    if a != 'url':
+        url+='&'+a+'='+arg.getvalue(a)
+         
+
 print "content-type: text/json"
 print "access-control-allow-origin: *"
 print                                   # so is this blank line
-
-url = arg['url'].value
-
 print pagefetch(url)
 
 

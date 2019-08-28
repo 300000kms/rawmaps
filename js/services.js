@@ -27,8 +27,8 @@ angular.module('raw.services', [])
 							var newD = parse_object(obj[i], path + i + ".");
 							$.extend(d, newD);
 						}
-
 						return d;
+
 					} else if (scalar) {
 						var d = {};
 						var endPath = path.substr(0, path.length - 1);

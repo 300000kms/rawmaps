@@ -252,15 +252,15 @@ angular.module('raw.controllers', [])
 				url: 'data/letters.tsv'
             },
 			{
-				title: 'Fotocasa',
+				title: 'Rent prices in Spain 2018',
 				type: 'points (narrow)',
-				url: 'data/fotocasa.csv'
+				url: 'data/rent_prices.csv'
             },
-			{
-				title: 'Fotocasa2',
-				type: 'points (narrow)',
-				url: 'data/fotocasa2.csv'
-            },
+//			{
+//				title: 'Fotocasa2',
+//				type: 'points (narrow)',
+//				url: 'data/fotocasa2.csv'
+//            },
 			{
 				title: 'heatmapData',
 				type: 'points (narrow)',
@@ -268,7 +268,7 @@ angular.module('raw.controllers', [])
             }
 			,
 			{
-				title: 'bcn neighborhoods',
+				title: 'BCN neighborhoods',
 				type: 'polygons',
 				url: 'data/count.geojson'
             }

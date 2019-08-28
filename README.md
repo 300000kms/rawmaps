@@ -28,3 +28,4 @@ We have added:
 
 RAWGraphs is provided under the [Apache License 2.0](https://github.com/densitydesign/raw/blob/master/LICENSE):
 
+![](bcnactiva.png =50x)

@@ -4,7 +4,7 @@
 
 **RAW MAPS** is a tool to develope easily data visualizations with low efforts and without
 
-- 1 Load your data: First, insert your data into RAWGraphs
+- 1 Load your data: First, insert your data into RAWMAPS
 
 - 2 Choose a Chart: Choose within a wide range of visual models
 
@@ -15,7 +15,7 @@
 - 5 Export and go anywhere: save it, edit with your favorite tools ans share
 
 
-**RAW MAPS** is a fork from RAW CHARTS, the intenttion of this fork is provide a new utilities to the original tool that add more capabilities applied to a more specific users.
+**RAW MAPS** is a fork from [RAW RAWGraphs](https://app.rawgraphs.io/), the intenttion of this fork is provide a new utilities to the original tool that add more capabilities applied to a more specific users.
 
 We have added:
 

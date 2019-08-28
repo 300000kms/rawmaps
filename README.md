@@ -1,4 +1,5 @@
 
+<img src="https://github.com/300000kms/rawmaps/raw/300milbranch/rawmaps.png" width="100%">
 
 ## About
 
@@ -28,10 +29,11 @@ We have added:
 
 RAWMAPS is provided under the [Apache License 2.0](https://github.com/densitydesign/raw/blob/master/LICENSE)
 
-Developed by [300.000Km/s](http://www.300000kms.net)
+Developed by [300.000Km/s](http://www.300000kms.net):
+
 <img src="https://github.com/300000kms/rawmaps/raw/300milbranch/300000kms.png" height="50px">
 
-With the support and help of:
+With the support and help of Barcelona Activa:
 
 <img src="https://github.com/300000kms/rawmaps/raw/300milbranch/bcnactiva.png" height="50px">
 
